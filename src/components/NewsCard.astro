@@ -1,8 +1,10 @@
 ---
+import { CATEGORY_BADGE_CLASS, type NewsCategory } from "../lib/news";
+
 interface Props {
   image: string;
   imageAlt: string;
-  category: "LAVS Trading" | "Cortijo" | "Sustainability";
+  category: NewsCategory;
   date: string;
   title: string;
   excerpt: string;
@@ -10,12 +12,6 @@ interface Props {
 }
 
 const { image, imageAlt, category, date, title, excerpt, href } = Astro.props;
-
-const badgeColor: Record<Props["category"], string> = {
-  "LAVS Trading": "bg-forest text-bone",
-  Cortijo: "bg-olive text-white",
-  Sustainability: "bg-gold text-ink",
-};
 ---
 
 <a
@@ -27,7 +23,7 @@ const badgeColor: Record<Props["category"], string> = {
   </div>
   <div class="flex flex-1 flex-col gap-[14px] p-[30px]">
     <div class="flex items-center gap-3">
-      <div class={`px-[10px] py-[6px] text-[10px] font-semibold uppercase tracking-[.14em] ${badgeColor[category]}`}>
+      <div class={`px-[10px] py-[6px] text-[10px] font-semibold uppercase tracking-[.14em] ${CATEGORY_BADGE_CLASS[category]}`}>
         {category}
       </div>
       <div class="text-xs text-muted">{date}</div>

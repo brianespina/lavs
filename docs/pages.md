@@ -11,7 +11,8 @@
 | `/lavs-trading/vco-oil` | `src/pages/lavs-trading/vco-oil.astro` | `lavs` | Service template |
 | `/cortijo` | `src/pages/cortijo.astro` | `cortijo` | No logo mark — type lockup / "C" monogram |
 | `/sustainability` | `src/pages/sustainability.astro` | `sustainability` | Three commitments, accreditation grid, photo gallery |
-| `/news` | `src/pages/news.astro` | `news` | Filter strip is non-functional (see open-items.md) |
+| `/news` | `src/pages/news.astro` | `news` | CMS-backed (Keystatic Cloud) — see [`cms.md`](./cms.md). Category filter works; "Load more" doesn't |
+| `/news/[slug]` | `src/pages/news/[slug].astro` | `news` | One article per entry in the `news` content collection, `getStaticPaths()`-generated at build time |
 | `/contact` | `src/pages/contact.astro` | `contact` | Flat band hero (no `Hero.astro`), form has no backend |
 
 ## Service page template
@@ -34,5 +35,6 @@ others — it's the maintained reference.
   in the original handoff, not a separate route — its spec was folded into
   `SiteNav.astro`'s responsive behavior and into `index.astro`'s own `lg:`
   breakpoints, rather than kept as a separate page.
-- No `/news/[slug]` article detail route — the handoff never designed one
-  (see `open-items.md`).
+- No article detail route existed until News & Media moved onto Keystatic —
+  the handoff never designed one, so `/news/[slug]`'s layout (hero band,
+  category badge, body, sidebar) is original, not from the handoff spec.

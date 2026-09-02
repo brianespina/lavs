@@ -7,9 +7,15 @@ of these turns out wrong, this is the file to update alongside the code.
 ## Stack
 
 - **Astro 7 + Tailwind v4** (`@tailwindcss/vite` plugin, CSS-first `@theme`
-  config — no `tailwind.config.js`). Static output (`output: "static"`),
-  no server runtime needed for a marketing site.
+  config — no `tailwind.config.js`).
 - Package manager: npm (whatever `npm create astro@latest` set up).
+- **`@astrojs/cloudflare` adapter** — added when Keystatic was wired up.
+  Every marketing page is still fully static/prerendered; the adapter exists
+  solely because Keystatic's `/keystatic` admin UI and `/api/keystatic`
+  backend need on-demand (server) rendering, which requires an adapter to
+  build at all. See `docs/cms.md`. This also means the deploy target is now
+  fixed as Cloudflare Workers (matching the `workers.dev` URL already
+  registered in the Keystatic Cloud project) rather than an open choice.
 
 ## Responsive behavior — beyond the literal spec
 
@@ -64,23 +70,28 @@ routing selector, message box) but does not submit anywhere — the handoff
 explicitly flags form handling, validation, and success/error states as
 unspecified (see Open Items). Don't mistake the UI for a working feature.
 
-## News & Media filtering / pagination is non-functional
+## News & Media is CMS-backed (Keystatic Cloud); pagination still isn't
 
-The filter strip (All / LAVS Trading / Cortijo / Sustainability) and "Load
-more updates" button render but don't do anything — same reason as the
-contact form: never specified in the handoff. All nine news items are
-placeholder copy per the handoff's own Open Items list.
+News & Media moved off hardcoded placeholder arrays onto a real Keystatic
+Cloud-backed content collection — see `docs/cms.md` for the full setup. The
+category filter strip (All / LAVS Trading / Cortijo / Sustainability &
+Community) is real now, toggling section visibility client-side. "Load more
+updates" is still a static, non-functional button — pagination past what's
+already shown per category was never specified, same reasoning as before.
+Article copy is still placeholder content (now real CMS entries, but
+written by Claude, not the client) — see Open Items.
 
-## A handful of colors are arbitrary values, not tokens
+## One color is still an arbitrary value, not a token
 
-`text-[#7A6438]`, `text-[#4A4132]`, `text-[#3A3226]` (Home's Sustainability
-band) and `text-[#4E6B45]` (the breadcrumb separator in `Hero.astro`) are
-intentionally **not** theme tokens. They're one-off values from the original
-design that appear in exactly one narrow context each and aren't in the
-handoff's own named color table — adding them to `@theme` for a single call
-site each would be token sprawl, not consistency. This is the deliberate
-exception to "add a token before using a raw hex": if a color shows up in a
-second, unrelated place, promote it to a token then.
+`text-[#4E6B45]` (the breadcrumb separator in `Hero.astro`) is intentionally
+**not** a theme token — it's a one-off value used in exactly one place and
+isn't in the handoff's own named color table. The Home page's Sustainability
+band colors that used to be raw hex here (`#7A6438` / `#4A4132` / `#3A3226`)
+were later promoted to proper tokens (`clay` / `clay-deep` / `clay-darker` in
+`global.css`) once they needed reuse — see `docs/design-system.md`. That's
+the pattern: a single-use one-off value can stay a raw hex in the arbitrary
+Tailwind bracket syntax; the moment it shows up a second time, promote it to
+a token instead of copy-pasting the hex.
 
 ## `Button.astro` radius via prop, not `class`
 

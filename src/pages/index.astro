@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -7,6 +8,11 @@ import Button from "../components/Button.astro";
 import PathwayCard from "../components/PathwayCard.astro";
 import NewsCard from "../components/NewsCard.astro";
 import type { PathwayIcon } from "../components/PathwayCard.astro";
+import { formatNewsDate } from "../lib/news";
+
+const latestNews = (await getCollection("news"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
 const lavsIcons: PathwayIcon[] = [
   { href: "/lavs-trading/landscaping", label: "Hardscape", svg: '<path d="M2 18h20M5 13h14M8 8h8"/>' },
@@ -46,35 +52,6 @@ const accreditations = [
   { src: "/logos/sec.png", alt: "SEC" },
 ];
 
-const news = [
-  {
-    image: "/images/pexels-yeye-159057926-37342497.jpg",
-    imageAlt: "LAVS commercial milestone",
-    category: "LAVS Trading" as const,
-    date: "August 2026",
-    title: "Bulk commodity distribution expands to a new cooperative partner network",
-    excerpt: "A recent commercial milestone in coco net and activated carbon supply for large-scale environmental projects.",
-    href: "/news",
-  },
-  {
-    image: "/images/pexels-roman-odintsov-12719333.jpg",
-    imageAlt: "TESDA training batch graduation",
-    category: "Cortijo" as const,
-    date: "July 2026",
-    title: "New batch completes Organic Agriculture Production NCII assessment",
-    excerpt: "Farmers and students certified at the farm school and assessment center in Quezon Province.",
-    href: "/news",
-  },
-  {
-    image: "/images/pexels-railgunbreaker-37438024.jpg",
-    imageAlt: "Community outreach / environmental initiative",
-    category: "Sustainability" as const,
-    date: "June 2026",
-    title: "Joint erosion-control initiative brings hardscaping expertise to local watersheds",
-    excerpt: "A shared LAVS and Cortijo program pairing community outreach with nature-based materials.",
-    href: "/news",
-  },
-];
 ---
 
 <BaseLayout title="Home">
@@ -268,7 +245,17 @@ const news = [
         </div>
       </div>
       <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-        {news.map((item) => <NewsCard {...item} />)}
+        {latestNews.map((entry) => (
+          <NewsCard
+            image={entry.data.coverImage}
+            imageAlt={entry.data.title}
+            category={entry.data.category}
+            date={formatNewsDate(entry.data.date)}
+            title={entry.data.title}
+            excerpt={entry.data.excerpt}
+            href={`/news/${entry.id}`}
+          />
+        ))}
       </div>
       <div class="flex justify-center">
         <Button href="/news" variant="outline-forest" pad="px-[30px] py-4">View all news &amp; media</Button>
