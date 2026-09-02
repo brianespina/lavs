@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Slope & embankment stabilisation", body: "Holding exposed slopes while planting establishes root structure." },
+  { num: "02", title: "Riverbank & watershed protection", body: "Bank protection on waterways and community watershed programmes." },
+  { num: "03", title: "Road cuts & infrastructure", body: "Cut-and-fill faces along roads and infrastructure corridors." },
+  { num: "04", title: "Mine & quarry rehabilitation", body: "Re-vegetation of disturbed ground on rehabilitation programmes." },
+  { num: "05", title: "Landscaping & replanting", body: "Ground stabilisation on landscaping and reforestation work." },
+  { num: "06", title: "Environmental projects", body: "Nature-based specification where synthetic geotextiles are unsuitable." },
+];
+
+const whoFor = [
+  { title: "Commercial & Industrial Clients", body: "Industrial-scale volumes of durable, eco-friendly materials for large-scale projects." },
+  { title: "Contractors & Consultants", body: "Supply against project specification, with volumes and timing agreed up front." },
+  { title: "Environmental Programmes", body: "Nature-based materials for watershed, reforestation, and rehabilitation work." },
+];
+
+const gallery = [
+  { src: "/images/pexels-katherine-a-photography-110685048-33653052.jpg", alt: "Coco nets project" },
+  { src: "/images/pexels-railgunbreaker-37438024.jpg", alt: "Coco nets project" },
+  { src: "/images/pexels-rebornfilmes-30020289.jpg", alt: "Coco nets project" },
+];
+---
+
+<BaseLayout title="Coco Nets / Geonets">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-denniz-futalan-339724-29928489.jpg"
+      imageAlt="Slope with erosion-control netting installed"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Coco Nets / Geonets" }}
+      title="Coco nets & geonets"
+      lead="Erosion-control geotextiles made from Philippine coconut fibre — a nature-based alternative for slope stabilisation, supplied at industrial volumes."
+    />
+
+    <ServiceSwitcher active="coco-nets" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="Product" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Nature-based erosion control
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Coco nets are woven from coconut fibre, a byproduct of an industry the Philippines already leads. Laid over exposed ground, they hold soil in place while vegetation establishes, then break down into the soil rather than remaining as waste.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          We supply industrial-scale volumes tailored to the strict demands of large-scale commercial and environmental projects &mdash; giving industries a practical, eco-friendly tool to protect natural landscapes.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Inquire about commercial supply</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-nour-alhoda-2151678059-33053216.jpg" alt="Coconut coir fibre and rope production" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Applications -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Applications" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">Where coco nets are used</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Specification, mesh weight, and roll sizing are confirmed per project.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">Commercial and industrial buyers</div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        {gallery.map((g) => (
+          <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Need coco nets or geonets at volume?"
+      subline="Send your specification and target volumes."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

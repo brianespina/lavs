@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Land clearing & preparation", body: "Clearing, de-stumping, and preparing ground for productive use." },
+  { num: "02", title: "Grading & contouring", body: "Shaping land for water movement, access, and workable planting blocks." },
+  { num: "03", title: "Drainage & water management", body: "Channels and drainage so the land handles heavy rain without losing soil." },
+  { num: "04", title: "Access roads & tracks", body: "Farm roads and tracks that stay usable in the wet season." },
+  { num: "05", title: "Planting layout", body: "Block layout and spacing planned around the crop and the terrain." },
+  { num: "06", title: "Farm infrastructure", body: "Supporting structures and hardscape elements where the operation needs them." },
+];
+
+const whoFor = [
+  { title: "Local Farmers & Landowners", body: "We help landowners unlock the true potential of their properties through hands-on development and site preparation." },
+  { title: "Cooperatives", body: "Land development for shared and cooperative holdings, sequenced around planting cycles." },
+  { title: "Institutional landholders", body: "Preparation of larger holdings for productive agricultural use." },
+];
+
+const gallery = [
+  { src: "/images/pexels-safari-consoler-3290243-36073761.jpg", alt: "Farm development project" },
+  { src: "/images/pexels-eren-arici-718198662-33277655.jpg", alt: "Farm development project" },
+  { src: "/images/pexels-nc-farm-bureau-mark-8658558.jpg", alt: "Farm development project" },
+];
+---
+
+<BaseLayout title="Farm Development">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-andromeda99-36102634.jpg"
+      imageAlt="Developed farm land"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Farm Development" }}
+      title="Farm development & site preparation"
+      lead="We help landowners unlock the true potential of their properties — hands-on farm development and site preparation by an invested, employee-owned team."
+    />
+
+    <ServiceSwitcher active="farm-development" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="What we do" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Land that is ready to produce
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Raw or underused land rarely fails for lack of potential &mdash; it fails for lack of preparation. We clear, shape, drain, and lay out land so that what gets planted on it has a real chance.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Our advantage is that we farm too. Through our partner enterprise, Cortijo de Palsabangon Farm OPC, we have seen firsthand what a working farm needs from its ground &mdash; and we develop land accordingly.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Request a site visit</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-themightynelson-5802822.jpg" alt="Land clearing and earthworks" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Scope of work -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Scope of work" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">What development covers</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Every property is different &mdash; scope and sequence are set on site.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">Landowners and producers</div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        {gallery.map((g) => (
+          <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Land sitting idle, or not producing what it should?"
+      subline="Tell us the location and hectarage and we will walk it with you."
+      ctaLabel="Request a site visit"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

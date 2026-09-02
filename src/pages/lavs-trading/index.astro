@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const services = [
+  { slug: "landscaping", title: "Landscaping", body: "Hardscape design, build, grading and drainage." },
+  { slug: "farm-development", title: "Farm Development", body: "Clearing, contouring, drainage and planting layout." },
+  { slug: "coco-nets", title: "Coco Nets / Geonets", body: "Coconut-fibre erosion control at industrial volume." },
+  { slug: "charcoal-briquettes", title: "Charcoal Briquettes", body: "Coconut-shell briquettes and activated carbon." },
+  { slug: "vco-oil", title: "VCO Oil", body: "Virgin coconut oil for commercial and export buyers." },
+];
+
+const partners = [
+  { rule: "border-forest", title: "Local Farmers & Landowners", body: "We help landowners unlock the true potential of their properties. Through hands-on farm development, site preparation, and intricate hardscape landscaping executed by an invested, employee-owned team, we build spaces that thrive." },
+  { rule: "border-olive", title: "Commercial & Residential Properties", body: "We transform outdoor environments into functional, beautiful, and enduring spaces for commercial properties, developments, and residential clients — an approach combining structural strength with aesthetic design." },
+  { rule: "border-gold", title: "Commercial & Industrial Clients", body: "We supply industrial-scale volumes of durable, eco-friendly materials — including erosion-control geotextiles, coco nets, and activated carbon — tailored to meet the strict demands of large-scale commercial and environmental projects." },
+];
+---
+
+<BaseLayout title="LAVS Trading & Development">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-kevinmenajang-6626128.jpg"
+      imageAlt="Hardscape landscaping and site development"
+      eyebrow="LAVS Trading & Development Services Inc."
+      title="Commercial trade, land development & industrial solutions"
+      lead="We specialize in professional landscaping and commercial site development, alongside the bulk distribution of primary Philippine commodities."
+    />
+
+    <!-- Five ways we work -->
+    <div class="band-x flex flex-col gap-8 bg-bone-deep py-12 lg:gap-8 lg:py-16">
+      <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-3">
+          <SectionLabel text="Our services" color="text-muted" />
+          <div class="text-[26px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[32px]">Five ways we work</div>
+        </div>
+        <div class="max-w-[360px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Each service has its own page &mdash; scope, applications, and who it is for.
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {services.map((s) => (
+          <a
+            href={`/lavs-trading/${s.slug}`}
+            class="group flex flex-col gap-3 rounded-tl-tile rounded-br-tile border border-border-light bg-white p-6 hover:border-forest hover:bg-forest"
+          >
+            <div class="text-pretty text-[17px] font-semibold leading-[1.25] text-forest group-hover:text-bone">{s.title}</div>
+            <div class="text-pretty text-[13.5px] leading-[1.55] text-body group-hover:text-mint">{s.body}</div>
+            <div class="mt-auto pt-2 text-[11px] font-semibold uppercase tracking-[.14em] text-gold group-hover:text-gold-light">View &rarr;</div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Two lines of business -->
+    <div class="band-x flex flex-col gap-10 bg-bone py-16 lg:gap-[52px] lg:py-[88px]">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="What we do" color="text-muted" />
+        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Two lines of business</div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div class="flex flex-col overflow-hidden rounded-tl-panel-lg rounded-br-panel-lg bg-white">
+          <div class="relative h-[200px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[250px]">
+            <img src="/images/pexels-tahir-33497138.jpg" alt="Hardscaping and site preparation" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="flex flex-1 flex-col gap-[22px] p-8 lg:p-[38px]">
+            <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold">01 &middot; Commercial &amp; land development</div>
+            <div class="text-pretty text-2xl font-semibold leading-[1.25] tracking-[-.02em] text-forest lg:text-[26px]">Landscaping &amp; farm development</div>
+            <div class="text-pretty text-[15px] leading-[1.65] text-body">
+              Hands-on farm development, site preparation, and intricate hardscape landscaping &mdash; structural strength combined with aesthetic design, executed by an invested, employee-owned team.
+            </div>
+            <div class="mt-auto flex flex-col gap-px bg-border-light">
+              <a href="/lavs-trading/landscaping" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                Hardscape landscaping <span class="text-xs text-gold">&rarr;</span>
+              </a>
+              <div class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest">Commercial site development</div>
+              <a href="/lavs-trading/farm-development" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                Farm development &amp; site preparation <span class="text-xs text-gold">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col overflow-hidden rounded-tl-panel-lg rounded-br-panel-lg bg-white">
+          <div class="relative h-[200px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[250px]">
+            <img src="/images/pexels-gildasio-mota-2148932169-36063662.jpg" alt="Coco nets, charcoal briquettes and VCO products" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="flex flex-1 flex-col gap-[22px] p-8 lg:p-[38px]">
+            <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold">02 &middot; Commercial trade &amp; distribution</div>
+            <div class="text-pretty text-2xl font-semibold leading-[1.25] tracking-[-.02em] text-forest lg:text-[26px]">Bulk Philippine commodities</div>
+            <div class="text-pretty text-[15px] leading-[1.65] text-body">
+              Industrial-scale volumes of durable, eco-friendly materials tailored to the strict demands of large-scale commercial and environmental projects.
+            </div>
+            <div class="mt-auto flex flex-col gap-px bg-border-light">
+              <a href="/lavs-trading/coco-nets" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                Coco nets / geonets <span class="text-xs text-gold">&rarr;</span>
+              </a>
+              <a href="/lavs-trading/charcoal-briquettes" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                Charcoal briquettes &amp; activated carbon <span class="text-xs text-gold">&rarr;</span>
+              </a>
+              <a href="/lavs-trading/vco-oil" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                VCO oil <span class="text-xs text-gold">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Who We Help -->
+    <div id="who-we-help" class="band-x flex flex-col gap-12 bg-white py-16 lg:py-[88px]">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who we help" color="text-muted" />
+        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Three kinds of partner</div>
+      </div>
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        {partners.map((p) => (
+          <div class={`flex flex-col gap-4 border-t-[3px] ${p.rule} pt-[30px]`}>
+            <div class="text-pretty text-xl font-semibold leading-[1.25] text-forest">{p.title}</div>
+            <div class="text-pretty text-[14.5px] leading-[1.68] text-body">{p.body}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Who We Are / Our Story -->
+    <div class="band-x flex flex-col gap-12 bg-forest py-16 lg:flex-row lg:gap-16 lg:py-[88px]">
+      <div class="flex flex-1 flex-col gap-6">
+        <SectionLabel text="Who we are · Our story" color="text-sage" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-bone lg:text-[36px]">
+          Built to elevate the agricultural landscape of the Philippines.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.7] text-mint">
+          We built LAVS Trading and Development Services Inc. with a singular commitment &mdash; to elevate the agricultural landscape of the Philippines and secure market success for local producers.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.7] text-pale-sage">
+          Born from the real-world agricultural foundation of our partner enterprise, Cortijo de Palsabangon Farm OPC, where we witnessed firsthand the immense potential of local harvests, LAVS Trading evolved into a dynamic enterprise driving the distribution and trade of premier Philippine agricultural byproducts &mdash; bridging local creators with large-scale industrial buyers.
+        </div>
+      </div>
+      <div class="flex flex-1 flex-col gap-7">
+        <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[260px]">
+          <img src="/images/pexels-themightynelson-5802822.jpg" alt="LAVS team on site" class="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div class="flex flex-col gap-4 bg-forest-deep p-8 lg:p-[34px]">
+          <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold-light">Our people &amp; culture</div>
+          <div class="text-pretty text-[15px] leading-[1.7] text-mint">
+            Our greatest asset is our people &mdash; and because of our ownership-driven culture, every team member genuinely acts like an owner. Every hardscape project, site development, and industrial trade is executed with extraordinary care, accountability, and technical precision.
+          </div>
+          <div class="text-pretty text-[15px] leading-[1.7] text-sage">
+            When you work with LAVS, you aren&rsquo;t just hiring a contractor &mdash; you are partnering with a team whose personal reputation is built into every result.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <SlimCta
+      question="Need industrial volumes, or a site developed properly?"
+      subline="Tell us the scope and we'll come back with specifics."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

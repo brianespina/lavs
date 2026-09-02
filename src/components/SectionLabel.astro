@@ -1,0 +1,25 @@
+---
+import QuadrantGlyph from "./QuadrantGlyph.astro";
+
+/**
+ * Eyebrow label: quadrant glyph + uppercase tracked text. Precedes every
+ * section headline. Color is inherited by the glyph via currentColor, so
+ * pass one Tailwind text-color class and both pieces follow it.
+ */
+interface Props {
+  text: string;
+  color?: string;
+  size?: "default" | "sm";
+  class?: string;
+}
+
+const { text, color = "text-sage", size = "default", class: className } = Astro.props;
+
+const glyphSize = size === "sm" ? 11 : 13;
+const textSize = size === "sm" ? "text-[11px] tracking-[.2em]" : "text-xs tracking-[.24em]";
+---
+
+<div class={["flex items-center gap-[11px]", color, className].filter(Boolean).join(" ")}>
+  <QuadrantGlyph size={glyphSize} />
+  <div class={`${textSize} font-semibold uppercase leading-[1.65]`}>{text}</div>
+</div>

@@ -1,0 +1,56 @@
+---
+/**
+ * Shared CTA button. Handles the button color/hover treatments from the
+ * design system; padding is passed in per-call since it varies slightly
+ * by placement (hero, card, band) rather than forcing one fixed size.
+ *
+ * Variants map 1:1 to the "Interactions & Behavior" table in the handoff:
+ *   gold           #C08A2E -> #E0AE58, text stays ink
+ *   forest         #143B26 -> #2C6141
+ *   outline-bone   border/text bone -> fills bone, text forest
+ *   outline-forest border/text forest -> fills forest, text bone
+ *   outline-sage   border sage, text bone -> fills bone, text forest
+ */
+interface Props {
+  href?: string;
+  variant?: "gold" | "forest" | "outline-bone" | "outline-forest" | "outline-sage";
+  pad?: string;
+  /** Corner-pair radius token — see the corner system in global.css. */
+  radius?: "field" | "control";
+  class?: string;
+  /** Any other attribute (type="submit", disabled, aria-*, …) passes through to the rendered tag. */
+  [attr: string]: unknown;
+}
+
+const {
+  href,
+  variant = "gold",
+  pad = "px-6 py-[15px]",
+  radius = "control",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const radii: Record<string, string> = {
+  field: "rounded-tl-field rounded-br-field",
+  control: "rounded-tl-control rounded-br-control",
+};
+
+const base =
+  "inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[.08em] whitespace-nowrap transition-colors duration-200";
+
+const variants: Record<string, string> = {
+  gold: "bg-gold text-ink hover:bg-gold-light",
+  forest: "bg-forest text-bone hover:bg-forest-mid",
+  "outline-bone": "border-[1.5px] border-bone text-bone hover:bg-bone hover:text-forest",
+  "outline-forest": "border-[1.5px] border-forest text-forest hover:bg-forest hover:text-bone",
+  "outline-sage": "border-[1.5px] border-sage text-bone hover:bg-bone hover:text-forest hover:border-bone",
+};
+
+const classes = [base, radii[radius], variants[variant], pad, className].filter(Boolean).join(" ");
+const Tag = href ? "a" : "button";
+---
+
+<Tag href={href} class={classes} {...rest}>
+  <slot />
+</Tag>

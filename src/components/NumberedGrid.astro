@@ -1,0 +1,52 @@
+---
+/**
+ * The "01 / 02 / 03…" numbered grid pattern — grid dividers via `gap:2px`
+ * over a border-colored parent, not per-cell borders. Used for Scope of
+ * Work (service pages), Cortijo credentials, and similar sections.
+ *
+ * `theme="light"` = white cells over --color-border-light, gold numeral.
+ * `theme="dark"` = forest cells over translucent bone, gold-light title,
+ * and (per spec) is outdented `-32px` so column one still lines up with
+ * the page gutter.
+ */
+interface Item {
+  num: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  items: Item[];
+  columns?: 2 | 3;
+  theme?: "light" | "dark";
+}
+
+const { items, columns = 2, theme = "light" } = Astro.props;
+
+const colClass = columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2";
+---
+
+{
+  theme === "light" ? (
+    <div class={`grid grid-cols-1 gap-[2px] bg-border-light ${colClass}`}>
+      {items.map((item) => (
+        <div class="flex gap-5 bg-white p-6 lg:px-8 lg:py-[30px]">
+          <div class="flex-none pt-1 text-xs font-bold tracking-[.14em] text-gold">{item.num}</div>
+          <div class="flex flex-col gap-2">
+            <div class="text-[17.5px] font-semibold leading-[1.3] text-forest">{item.title}</div>
+            <div class="text-pretty text-sm leading-[1.6] text-body">{item.body}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class={`grid grid-cols-1 gap-[2px] bg-bone/[.16] lg:mx-[-32px] ${colClass}`}>
+      {items.map((item) => (
+        <div class="flex flex-col gap-[11px] bg-forest p-[30px] lg:px-8">
+          <div class="text-lg font-semibold leading-[1.3] text-gold-light">{item.title}</div>
+          <div class="text-pretty text-[14.5px] leading-[1.65] text-mint">{item.body}</div>
+        </div>
+      ))}
+    </div>
+  )
+}

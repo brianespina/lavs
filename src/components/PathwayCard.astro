@@ -1,0 +1,93 @@
+---
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+
+export interface PathwayIcon {
+  href: string;
+  label: string;
+  /** Raw inner SVG markup (stroke paths), rendered inside a fixed 24x24 viewBox. */
+  svg: string;
+}
+
+interface Props {
+  brand: "lavs" | "cortijo";
+  eyebrow: string;
+  title: string;
+  image: string;
+  imageAlt: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref: string;
+  icons: PathwayIcon[];
+}
+
+const { brand, eyebrow, title, image, imageAlt, description, ctaLabel, ctaHref, icons } = Astro.props;
+---
+
+<div class="flex flex-col overflow-hidden rounded-tl-card rounded-br-card border border-forest-card-border bg-forest-card">
+  <div class="flex flex-col gap-5 px-7 pt-[26px]">
+    {
+      brand === "lavs" ? (
+        <div class="flex items-center gap-[11px]">
+          <Logo size={34} variant="dark" />
+          <div class="flex flex-col gap-[3px]">
+            <div class="text-base font-bold leading-none tracking-[.08em] text-bone">LAVS</div>
+            <div class="whitespace-nowrap text-[6.5px] font-medium uppercase tracking-[.18em] text-pale-sage">
+              Trading &amp; Development Services Inc.
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="flex items-center gap-[11px]">
+          <div class="flex h-[34px] w-[34px] flex-none items-center justify-center rounded-tl-chip rounded-br-chip border-[1.5px] border-sage">
+            <div class="text-[13px] font-bold tracking-[.02em] text-sage">C</div>
+          </div>
+          <div class="flex flex-col gap-[3px]">
+            <div class="text-[13.5px] font-bold uppercase leading-none tracking-[.1em] text-bone">Cortijo de Palsabangon</div>
+            <div class="whitespace-nowrap text-[6.5px] font-medium uppercase tracking-[.18em] text-pale-sage">
+              Farm OPC &middot; Est. 2012 &middot; Quezon Province
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="flex flex-col gap-[9px]">
+      <div class={`text-[11px] font-semibold uppercase tracking-[.18em] ${brand === "lavs" ? "text-gold-light" : "text-sage"}`}>
+        {eyebrow}
+      </div>
+      <div class="text-pretty text-2xl font-semibold leading-[1.2] tracking-[-.02em] text-bone lg:text-[25px]">
+        {title}
+      </div>
+    </div>
+  </div>
+
+  <div class="relative mx-7 mt-[22px] h-[190px] overflow-hidden rounded-tl-photo rounded-br-photo">
+    <img src={image} alt={imageAlt} class="h-full w-full object-cover" loading="lazy" />
+  </div>
+
+  <div class="flex flex-1 flex-col gap-5 px-7 pb-[26px] pt-[22px]">
+    <div class="text-pretty text-sm leading-[1.6] text-mint">{description}</div>
+    <div>
+      <Button href={ctaHref} variant="gold" pad="px-[22px] py-[15px]" radius="field">
+        {ctaLabel}
+      </Button>
+    </div>
+
+    <div class="mt-auto grid grid-cols-5 gap-1 border-t border-sage/[.28] pt-[26px]">
+      {
+        icons.map((icon) => (
+          <a
+            href={icon.href}
+            class="flex flex-col items-center gap-[9px] rounded-tl-chip rounded-br-chip px-1 pb-1 pt-[18px] text-center hover:bg-sage/[.14]"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FAE5C" stroke-width="1.5" class="flex-none" set:html={icon.svg} />
+            <div class="whitespace-nowrap text-[9.5px] font-semibold uppercase leading-[1.4] tracking-[.08em] text-mint">
+              {icon.label}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>

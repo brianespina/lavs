@@ -1,0 +1,36 @@
+---
+/**
+ * Primary way to move between the five LAVS Trading service pages.
+ * `active` highlights the current tab with a persistent gold-light fill.
+ */
+interface Props {
+  active: "landscaping" | "farm-development" | "coco-nets" | "charcoal-briquettes" | "vco-oil";
+}
+
+const { active } = Astro.props;
+
+const services = [
+  { slug: "landscaping", label: "Landscaping" },
+  { slug: "farm-development", label: "Farm Development" },
+  { slug: "coco-nets", label: "Coco Nets / Geonets" },
+  { slug: "charcoal-briquettes", label: "Charcoal Briquettes" },
+  { slug: "vco-oil", label: "VCO Oil" },
+] as const;
+---
+
+<div class="band-x flex h-auto flex-wrap items-stretch bg-forest-deep lg:h-16 lg:flex-nowrap">
+  {
+    services.map((service) => (
+      <a
+        href={`/lavs-trading/${service.slug}`}
+        class={
+          service.slug === active
+            ? "flex items-center whitespace-nowrap rounded-tl-field rounded-br-field bg-gold-light px-[26px] py-3 text-[12.5px] font-semibold uppercase tracking-[.06em] text-ink lg:py-0"
+            : "flex items-center whitespace-nowrap px-[26px] py-3 text-[12.5px] font-medium uppercase tracking-[.06em] text-mint hover:text-gold-light lg:py-0"
+        }
+      >
+        {service.label}
+      </a>
+    ))
+  }
+</div>

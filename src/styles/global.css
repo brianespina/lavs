@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/*
+  LAVS Trading design tokens.
+  Source of truth: /handoff/design_handoff_lavs_website/README.md (gitignored, local only).
+  See /docs/design-system.md for the human-readable version of this file.
+*/
+@theme {
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colors */
+  --color-forest: #143b26;
+  --color-forest-deep: #0e2a1b;
+  --color-forest-mid: #2c6141;
+  --color-forest-card: #1b4730;
+  --color-forest-card-border: #2f6244;
+  --color-olive: #6e8b3d;
+  --color-sage: #8fae5c;
+  --color-pale-sage: #b9c7a8;
+  --color-mint: #dcebcb;
+  --color-gold: #c08a2e;
+  --color-gold-light: #e0ae58;
+  --color-sand: #e7d3a9;
+  --color-bone: #f7f4ed;
+  --color-bone-deep: #efebe1;
+  --color-white: #ffffff;
+  --color-border-light: #e8e3d6;
+  --color-border-light-2: #ddd7c9;
+  --color-border-light-3: #e1daca;
+  --color-ink: #1a1d1c;
+  --color-body: #4a5257;
+  --color-muted: #767e82;
+  --color-muted-2: #a29a88;
+  --color-placeholder: #a9a395;
+
+  /*
+    Corner system — "Diagonal pair".
+    Every rounded surface curves only its top-left and bottom-right corners.
+    Apply as a pair, e.g. `rounded-tl-card rounded-br-card`.
+    Named by usage so a value only ever needs to change in one place.
+  */
+  --radius-chip: 12px; /* chips, icon tiles, small thumbs */
+  --radius-field: 14px; /* switcher active tab, card CTA, form fields */
+  --radius-control: 16px; /* buttons / CTAs */
+  --radius-tile: 20px; /* service tiles, nav dropdown */
+  --radius-photo: 24px; /* nested photo inside a card */
+  --radius-panel: 28px; /* media cards / dark panels / photo frames (small end) */
+  --radius-card: 32px; /* pathway cards */
+  --radius-panel-lg: 36px; /* media cards / news cards (large end) */
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background: var(--color-bone-deep);
+    color: var(--color-body);
+  }
+
+  a {
+    color: var(--color-forest-mid);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-gold);
+  }
+}
+
+@layer utilities {
+  /*
+    Full-bleed gutter formula: every band spans the viewport while
+    content stays measured to the 1440px design width.
+  */
+  .band-x {
+    padding-left: max(48px, calc((100% - 1440px) / 2 + 48px));
+    padding-right: max(48px, calc((100% - 1440px) / 2 + 48px));
+    box-sizing: border-box;
+  }
+}

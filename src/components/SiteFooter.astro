@@ -1,0 +1,110 @@
+---
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+
+/**
+ * Shared footer — global CTA band (photo + forest overlay) then the
+ * footer link grid. One shared component across every page.
+ */
+---
+
+<footer class="font-sans">
+  <!-- Global CTA band -->
+  <div class="relative overflow-hidden bg-forest-mid">
+    <div class="absolute inset-0">
+      <img
+        src="/images/pexels-oktay-koseoglu-42034955-38040480.jpg"
+        alt=""
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <div class="absolute inset-0 bg-forest opacity-[.86]"></div>
+    <div class="band-x relative flex flex-col items-start gap-6 py-11 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:py-[88px]">
+      <div class="flex flex-col gap-3">
+        <div class="max-w-[620px] text-pretty text-[26px] font-semibold leading-[1.2] tracking-[-.02em] text-bone lg:text-[34px]">
+          Let&rsquo;s talk about your land, your supply, or your training needs.
+        </div>
+        <div class="text-[15px] text-mint">0917 143 1060 &middot; 0915 009 0383 &middot; lavstradecorp@gmail.com</div>
+      </div>
+      <div class="flex flex-none flex-col gap-3 sm:flex-row sm:gap-[14px]">
+        <Button href="/contact" variant="gold" pad="px-[26px] py-[17px]">Inquire about commercial supply</Button>
+        <Button href="/cortijo" variant="outline-bone" pad="px-[26px] py-[15.5px]">Enroll in TESDA courses</Button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer links -->
+  <div class="band-x flex flex-col gap-14 bg-forest-deep py-14 pt-[72px] lg:gap-[56px] lg:pb-10">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-12">
+      <div class="flex flex-col gap-[22px]">
+        <div class="flex items-center gap-[13px]">
+          <Logo size={42} variant="dark" />
+          <div class="flex flex-col gap-1">
+            <div class="text-[21px] font-bold leading-none tracking-[.08em] text-bone">LAVS</div>
+            <div class="whitespace-nowrap text-[7px] font-medium uppercase leading-tight tracking-[.2em] text-pale-sage">
+              Trading &amp; Development<br />Services Inc.
+            </div>
+          </div>
+        </div>
+        <div class="max-w-[340px] text-pretty text-[13.5px] leading-[1.65] text-pale-sage">
+          An integrated ecosystem uniting LAVS Trading &amp; Development Services Inc. and Cortijo de Palsabangon Farm OPC.
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <div class="border border-pale-sage/35 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-mint">TESDA Accredited</div>
+          <div class="border border-pale-sage/35 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-mint">DA-ATI Learning Site</div>
+          <div class="border border-pale-sage/35 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-mint">DTI &middot; SEC Registered</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="text-[11px] font-semibold uppercase tracking-[.2em] text-gold-light">LAVS Trading</div>
+        <div class="flex flex-col gap-[11px] text-[13.5px] text-mint">
+          <a href="/lavs-trading">Overview</a>
+          <a href="/lavs-trading/landscaping">Landscaping</a>
+          <a href="/lavs-trading/farm-development">Farm Development</a>
+          <a href="/lavs-trading/coco-nets">Coco Nets / Geonets</a>
+          <a href="/lavs-trading/charcoal-briquettes">Charcoal Briquettes</a>
+          <a href="/lavs-trading/vco-oil">VCO Oil</a>
+          <a href="/lavs-trading#who-we-help">Who We Help</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="text-[11px] font-semibold uppercase tracking-[.2em] text-gold-light">Cortijo de Palsabangon</div>
+        <div class="flex flex-col gap-[11px] text-[13.5px] text-mint">
+          <a href="/cortijo">Farm School</a>
+          <a href="/cortijo">TESDA Training Programs</a>
+          <a href="/cortijo">Micro-Credentials</a>
+          <a href="/cortijo">Agricultural Solutions</a>
+          <a href="/cortijo">Nursery &amp; Seedlings</a>
+          <a href="/cortijo">Credentials &amp; Accreditations</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="text-[11px] font-semibold uppercase tracking-[.2em] text-gold-light">Quick links</div>
+        <div class="flex flex-col gap-[11px] text-[13.5px] text-mint">
+          <a href="/sustainability">Sustainability &amp; Community</a>
+          <a href="/news">News &amp; Media</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+        <div class="pt-[6px] text-[13.5px] leading-[1.7] text-pale-sage">0917 143 1060<br />0915 009 0383<br />lavstradecorp@gmail.com</div>
+        <div class="flex gap-[9px] pt-1">
+          {["f", "ig", "in", "g"].map((label) => (
+            <div class="flex h-8 w-8 cursor-pointer items-center justify-center border border-pale-sage/35 text-[11px] font-semibold text-mint hover:border-gold-light hover:text-gold-light">
+              {label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-start gap-3 border-t border-pale-sage/20 pt-[26px] sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+      <div class="text-xs text-sage">&copy; 2026 LAVS Trading &amp; Development Services Inc. &middot; Quezon Province, Philippines</div>
+      <div class="flex gap-6 text-xs text-sage">
+        <div class="cursor-pointer hover:text-gold-light">Privacy</div>
+        <div class="cursor-pointer hover:text-gold-light">Terms</div>
+      </div>
+    </div>
+  </div>
+</footer>

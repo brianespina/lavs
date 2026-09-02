@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Hardscape design & build", body: "Pathways, driveways, patios, steps, and retaining structures built to carry real load." },
+  { num: "02", title: "Site grading & drainage", body: "Shaping and drainage so finished surfaces stay stable through the wet season." },
+  { num: "03", title: "Softscape & planting", body: "Planting and ground cover integrated with the built elements, not added as an afterthought." },
+  { num: "04", title: "Site development", body: "Preparation, access, and levelling for commercial and residential developments." },
+  { num: "05", title: "Finishing & handover", body: "Detailing, clean-up, and a walkthrough before the space is handed over." },
+  { num: "06", title: "Aftercare", body: "Guidance and support so the work holds up after handover." },
+];
+
+const whoFor = [
+  { title: "Commercial & Residential Properties", body: "Functional, beautiful, and enduring outdoor environments for properties and developments." },
+  { title: "Developers & Contractors", body: "Hardscaping and site development delivered as part of a larger build programme." },
+  { title: "Landowners", body: "Grounds work that raises the value and usability of a property." },
+];
+
+const gallery = [
+  { src: "/images/pexels-quang-nguyen-vinh-222549-14024972.jpg", alt: "Landscaping project" },
+  { src: "/images/pexels-daniel-agundiz-2159069831-36866669.jpg", alt: "Landscaping project" },
+  { src: "/images/pexels-huck-owen-fajardo-2155362555-33686579.jpg", alt: "Landscaping project" },
+];
+---
+
+<BaseLayout title="Landscaping">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-kevinmenajang-6626128.jpg"
+      imageAlt="Finished landscape and resort grounds"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Landscaping" }}
+      title="Hardscape landscaping"
+      lead="We transform outdoor environments into functional, beautiful, and enduring spaces — combining structural strength with aesthetic design."
+    />
+
+    <ServiceSwitcher active="landscaping" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="What we do" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Structural strength, aesthetic design
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          We specialize in intricate hardscape landscaping for commercial properties, developments, and residential clients &mdash; pathways, driveways, retaining structures, and the grading and drainage that make them last.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Every project is executed by an invested, employee-owned team. Each individual has a personal stake in the outcome, so the work is carried out with extraordinary care, accountability, and technical precision.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Request a site visit</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-marianna-zuzanna-498248397-16239801.jpg" alt="Pavers and hardscape work in progress" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Scope of work -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Scope of work" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">What a project includes</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Scope is set after a site walk &mdash; we quote against what the ground actually needs.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">
+          Commercial, residential, and development clients
+        </div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+          <img src={gallery[0].src} alt={gallery[0].alt} class="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+          <img src={gallery[1].src} alt={gallery[1].alt} class="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+          <img src={gallery[2].src} alt={gallery[2].alt} class="h-full w-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <SlimCta
+      question="Have a site that needs developing properly?"
+      subline="Send us the location and scope — we will come back with specifics."
+      ctaLabel="Request a site visit"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

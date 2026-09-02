@@ -1,0 +1,196 @@
+---
+import Logo from "./Logo.astro";
+
+/**
+ * Shared site nav — two rows (utility bar + main bar) plus dropdowns for
+ * the two enterprise sections. Built once, reused on every page via the
+ * `active` prop (see /docs/design-system.md#sitenav).
+ *
+ * Dropdown behavior: open on mouseenter of the trigger, close 260ms after
+ * mouseleave (see the inline script below) so diagonal cursor travel into
+ * the panel doesn't dismiss it. Panel is anchored with `top-full`, not a
+ * hardcoded offset, so it tracks the real trigger height.
+ *
+ * Below `lg` (1024px) the nav collapses to the Mobile-Home hamburger
+ * pattern. Interior-page content below the nav is still desktop-fidelity
+ * only per the handoff (tablet / interior mobile layouts are an open
+ * item — see /docs/open-items.md) — only the nav itself is responsive
+ * site-wide, since it's a shared component used on every page.
+ */
+interface Props {
+  active?: "home" | "lavs" | "cortijo" | "sustainability" | "news" | "contact";
+}
+
+const { active = "home" } = Astro.props;
+
+const navLink =
+  "relative py-[33px] text-[12.5px] font-medium text-bone whitespace-nowrap hover:text-gold-light transition-colors";
+
+const underline =
+  "absolute left-0 right-0 bottom-[26px] h-[2px] bg-gold-light";
+---
+
+<header class="relative z-50 font-sans">
+  <!-- Utility bar — desktop -->
+  <div class="band-x hidden h-[42px] items-center justify-between bg-forest-deep lg:flex">
+    <div class="flex items-center gap-5 text-[11px] font-medium uppercase tracking-[.14em] text-sage">
+      <div class="whitespace-nowrap">DA-ATI Accredited Learning Site</div>
+      <div class="h-[11px] w-px bg-sage/40"></div>
+      <div class="whitespace-nowrap">TESDA Registered Farm School</div>
+      <div class="h-[11px] w-px bg-sage/40"></div>
+      <div class="whitespace-nowrap">DTI &middot; SEC Registered</div>
+    </div>
+    <div class="flex items-center gap-[22px] text-xs text-mint">
+      <div class="whitespace-nowrap">0917 143 1060 &middot; 0915 009 0383</div>
+      <div class="h-[11px] w-px bg-mint/30"></div>
+      <div class="whitespace-nowrap">lavstradecorp@gmail.com</div>
+    </div>
+  </div>
+
+  <!-- Utility bar — mobile -->
+  <div class="flex h-8 items-center justify-center bg-forest-deep px-5 lg:hidden">
+    <div class="whitespace-nowrap text-[9.5px] font-medium uppercase tracking-[.14em] text-sage">
+      TESDA &middot; DA-ATI &middot; DTI &middot; SEC accredited
+    </div>
+  </div>
+
+  <!-- Main bar -->
+  <div class="band-x relative z-20 flex h-[66px] items-center justify-between bg-forest px-5 lg:h-[88px] lg:px-0">
+    <a href="/" class="flex flex-none items-center gap-[10px] lg:gap-[13px]" aria-label="LAVS Trading home">
+      <Logo variant="dark" class="h-[34px] w-[34px] lg:h-[46px] lg:w-[46px]" />
+      <div class="flex flex-col gap-1">
+        <div class="text-[17px] font-bold leading-none tracking-[.08em] text-bone lg:text-[23px]">LAVS</div>
+        <div class="whitespace-nowrap text-[6px] font-medium uppercase leading-tight tracking-[.2em] text-pale-sage lg:text-[7.5px]">
+          Trading &amp; Development<br />Services Inc.
+        </div>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden flex-none items-center gap-6 lg:flex">
+      <div class="relative">
+        <a href="/" class={navLink}>Home</a>
+        {active === "home" && <div class={underline}></div>}
+      </div>
+
+      <div class="group relative" data-dropdown="lavs">
+        <div class={`${navLink} flex cursor-pointer items-center gap-[6px]`}>
+          LAVS Trading &amp; Development
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none" aria-hidden="true">
+            <path d="M1 1L4 4L7 1" stroke="#8FAE5C" stroke-width="1.4"></path>
+          </svg>
+        </div>
+        {(active === "lavs") && <div class={`${underline} right-[14px]`}></div>}
+        <div
+          data-dropdown-panel="lavs"
+          class="pointer-events-none absolute -left-5 top-full w-[286px] rounded-br-tile border-t-[3px] border-gold bg-bone py-[10px] opacity-0 shadow-[0_18px_40px_rgba(14,42,27,.22)] transition-opacity duration-150"
+        >
+          <a href="/lavs-trading" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-semibold text-forest hover:bg-bone-deep hover:text-forest-mid">Overview</a>
+          <div class="mx-6 my-2 h-px bg-border-light-3"></div>
+          <div class="px-6 pb-[6px] pt-2 text-[9.5px] font-semibold uppercase tracking-[.18em] text-muted-2">Services</div>
+          <a href="/lavs-trading/landscaping" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Landscaping</a>
+          <a href="/lavs-trading/farm-development" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Farm Development</a>
+          <a href="/lavs-trading/coco-nets" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Coco Nets / Geonets</a>
+          <a href="/lavs-trading/charcoal-briquettes" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Charcoal Briquettes</a>
+          <a href="/lavs-trading/vco-oil" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">VCO Oil</a>
+          <div class="mx-6 my-2 h-px bg-border-light-3"></div>
+          <a href="/lavs-trading#who-we-help" class="block whitespace-nowrap px-6 pb-[13px] pt-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Who We Help</a>
+        </div>
+      </div>
+
+      <div class="group relative" data-dropdown="cortijo">
+        <div class={`${navLink} flex cursor-pointer items-center gap-[6px]`}>
+          Cortijo de Palsabangon Farm
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none" aria-hidden="true">
+            <path d="M1 1L4 4L7 1" stroke="#8FAE5C" stroke-width="1.4"></path>
+          </svg>
+        </div>
+        {(active === "cortijo") && <div class={`${underline} right-[14px]`}></div>}
+        <div
+          data-dropdown-panel="cortijo"
+          class="pointer-events-none absolute -left-5 top-full w-[286px] rounded-br-tile border-t-[3px] border-gold bg-bone py-[10px] opacity-0 shadow-[0_18px_40px_rgba(14,42,27,.22)] transition-opacity duration-150"
+        >
+          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Agricultural Solutions &amp; Distribution</a>
+          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Agricultural Education &amp; Training</a>
+          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Credentials &amp; Accreditations</a>
+        </div>
+      </div>
+
+      <div class="relative">
+        <a href="/sustainability" class={navLink}>Sustainability &amp; Community</a>
+        {active === "sustainability" && <div class={underline}></div>}
+      </div>
+
+      <div class="relative">
+        <a href="/news" class={navLink}>News &amp; Media</a>
+        {active === "news" && <div class={underline}></div>}
+      </div>
+
+      <a href="/contact" class="flex-none whitespace-nowrap rounded-tl-control rounded-br-control bg-gold px-[18px] py-3 text-[11px] font-semibold uppercase tracking-[.08em] text-ink hover:bg-gold-light">
+        Contact Us
+      </a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button
+      type="button"
+      data-mobile-toggle
+      aria-expanded="false"
+      aria-label="Toggle menu"
+      class="-mr-[10px] flex h-11 w-11 flex-none flex-col items-center justify-center gap-[5px] lg:hidden"
+    >
+      <span class="h-[2px] w-[22px] bg-bone"></span>
+      <span class="h-[2px] w-[22px] bg-bone"></span>
+      <span class="h-[2px] w-[22px] bg-bone"></span>
+    </button>
+  </div>
+
+  <!-- Mobile panel -->
+  <div data-mobile-panel class="relative z-[25] hidden flex-col bg-forest-deep px-5 pb-[26px] pt-2 lg:hidden">
+    <a href="/" class={`border-b border-mint/20 py-4 text-[15px] ${active === "home" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Home</a>
+    <a href="/lavs-trading" class={`border-b border-mint/20 py-4 text-[15px] ${active === "lavs" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>LAVS Trading &amp; Development</a>
+    <a href="/cortijo" class={`border-b border-mint/20 py-4 text-[15px] ${active === "cortijo" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Cortijo de Palsabangon Farm</a>
+    <a href="/sustainability" class={`border-b border-mint/20 py-4 text-[15px] ${active === "sustainability" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Sustainability &amp; Community</a>
+    <a href="/news" class={`py-4 text-[15px] ${active === "news" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>News &amp; Media</a>
+    <a href="/contact" class="mt-5 rounded-tl-control rounded-br-control bg-gold py-4 text-center text-[12.5px] font-semibold uppercase tracking-[.08em] text-ink">Contact Us</a>
+    <div class="mt-[18px] text-[13px] leading-[1.7] text-pale-sage">0917 143 1060<br />lavstradecorp@gmail.com</div>
+  </div>
+</header>
+
+<script>
+  const CLOSE_DELAY = 260;
+  let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+  function showPanel(panel: HTMLElement) {
+    clearTimeout(closeTimer);
+    panel.classList.remove("pointer-events-none", "opacity-0");
+    panel.classList.add("opacity-100");
+  }
+
+  function scheduleHide(panel: HTMLElement) {
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
+      panel.classList.add("pointer-events-none", "opacity-0");
+      panel.classList.remove("opacity-100");
+    }, CLOSE_DELAY);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((trigger) => {
+    const name = trigger.dataset.dropdown;
+    const panel = document.querySelector<HTMLElement>(`[data-dropdown-panel="${name}"]`);
+    if (!panel) return;
+
+    trigger.addEventListener("mouseenter", () => showPanel(panel));
+    trigger.addEventListener("mouseleave", () => scheduleHide(panel));
+    panel.addEventListener("mouseenter", () => showPanel(panel));
+    panel.addEventListener("mouseleave", () => scheduleHide(panel));
+  });
+
+  const mobileToggle = document.querySelector<HTMLButtonElement>("[data-mobile-toggle]");
+  const mobilePanel = document.querySelector<HTMLElement>("[data-mobile-panel]");
+  mobileToggle?.addEventListener("click", () => {
+    const open = mobilePanel?.classList.toggle("flex");
+    mobilePanel?.classList.toggle("hidden");
+    mobileToggle.setAttribute("aria-expanded", String(Boolean(open)));
+  });
+</script>

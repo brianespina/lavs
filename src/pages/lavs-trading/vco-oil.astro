@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Food & beverage", body: "Culinary and processing use for food manufacturers and distributors." },
+  { num: "02", title: "Cosmetics & personal care", body: "Base oil supply for cosmetic and personal-care formulators." },
+  { num: "03", title: "Nutraceutical", body: "Supply for supplement and wellness product manufacturers." },
+  { num: "04", title: "Private label", body: "Volume supply for buyers packaging under their own brand." },
+  { num: "05", title: "Export buyers", body: "Bulk sourcing of Philippine virgin coconut oil." },
+  { num: "06", title: "Retail & distribution", body: "Supply to distributors serving domestic retail channels." },
+];
+
+const whoFor = [
+  { title: "Agricultural Producers & Cooperatives", body: "We bridge the gap between dedicated local producers and the broader market." },
+  { title: "Commercial Buyers", body: "Reliable volumes of premier Philippine agricultural byproducts." },
+  { title: "Export Partners", body: "Bulk sourcing with agreed volumes, packaging, and timing." },
+];
+
+const gallery = [
+  { src: "/images/pexels-quang-nguyen-vinh-222549-14024972.jpg", alt: "VCO oil project" },
+  { src: "/images/pexels-muhamad-guruh-budi-hartono-430167744-37321079.jpg", alt: "VCO oil project" },
+  { src: "/images/pexels-nc-farm-bureau-mark-8658558.jpg", alt: "VCO oil project" },
+];
+---
+
+<BaseLayout title="VCO Oil">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-kovalskiolga-8647221.jpg"
+      imageAlt="Virgin coconut oil product"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "VCO Oil" }}
+      title="Virgin coconut oil"
+      lead="Virgin coconut oil sourced through our producer network and supplied to commercial, industrial, and export buyers."
+    />
+
+    <ServiceSwitcher active="vco-oil" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="Product" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Premier Philippine byproducts, traded properly
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Virgin coconut oil is among the highest-value products a Philippine smallholder can contribute to &mdash; but only if it reaches the right buyer. Distribution, not production, is usually the bottleneck.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          We take on the burden of marketing and distribution so that high-quality Philippine goods reach the right buyers at fair prices, turning our producers&rsquo; hard work into sustainable success.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Inquire about commercial supply</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-gildasio-mota-2148932169-36063662.jpg" alt="Coconut production" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Applications -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Applications" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">Who buys VCO</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Volumes, packaging, and documentation are agreed per buyer.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">Producers on one side, buyers on the other</div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        {gallery.map((g) => (
+          <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Looking for a reliable VCO supply line?"
+      subline="Tell us your volumes and packaging requirement."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

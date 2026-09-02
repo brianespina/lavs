@@ -1,0 +1,31 @@
+---
+/**
+ * Slim closing CTA band — every interior page ends on this instead of a
+ * third filled button. See "CTA hierarchy" in the handoff: one filled
+ * button per content area, plus the global footer CTA.
+ */
+interface Props {
+  question: string;
+  subline: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { question, subline, ctaLabel, ctaHref } = Astro.props;
+---
+
+<div class="band-x flex flex-col items-start gap-4 border-t border-border-light-3 bg-bone-deep py-8 lg:flex-row lg:items-baseline lg:justify-between lg:gap-12 lg:py-11">
+  <div class="flex flex-col flex-wrap items-baseline gap-2 lg:flex-row lg:gap-4">
+    <div class="text-pretty text-xl font-semibold leading-[1.35] tracking-[-.015em] text-forest lg:text-[22px]">
+      {question}
+    </div>
+    <div class="text-[14.5px] text-muted">{subline}</div>
+  </div>
+  <a
+    href={ctaHref}
+    class="flex flex-none items-center gap-[10px] whitespace-nowrap border-b-[1.5px] border-gold pb-[5px] text-[12.5px] font-semibold uppercase tracking-[.08em] text-forest-mid hover:text-gold"
+  >
+    {ctaLabel}
+    <span class="text-sm">&rarr;</span>
+  </a>
+</div>

@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Water filtration", body: "Activated carbon for potable and process water treatment." },
+  { num: "02", title: "Air & gas purification", body: "Filtration media for industrial air and gas streams." },
+  { num: "03", title: "Industrial processing", body: "Carbon supplied to processors and manufacturers by specification." },
+  { num: "04", title: "Commercial fuel", body: "Briquettes for food service, hospitality, and commercial cooking." },
+  { num: "05", title: "Export buyers", body: "Bulk supply for buyers sourcing Philippine coconut-shell carbon." },
+  { num: "06", title: "Private label", body: "Volume supply for buyers packaging under their own brand." },
+];
+
+const whoFor = [
+  { title: "Commercial & Industrial Clients", body: "Industrial-scale volumes tailored to the strict demands of large-scale projects." },
+  { title: "Processors & Manufacturers", body: "Consistent supply against a stated grade and specification." },
+  { title: "Export Buyers", body: "Bulk sourcing of Philippine coconut-shell charcoal and carbon." },
+];
+
+const gallery = [
+  { src: "/images/pexels-thirdman-8021316.jpg", alt: "Charcoal briquettes" },
+  { src: "/images/pexels-karola-g-4750315.jpg", alt: "Carbonised material" },
+  { src: "/images/pexels-tim-diercks-719708976-37294147.jpg", alt: "Charcoal briquettes project" },
+];
+---
+
+<!--
+  Product-shot note: per the handoff's Open Items, dedicated charcoal-
+  briquette and activated-carbon photography was never supplied — these
+  are the design's own thematically-close stand-ins, not final assets.
+-->
+<BaseLayout title="Charcoal Briquettes">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-maltelu-13037136.jpg"
+      imageAlt="Charcoal briquettes and activated carbon"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Charcoal Briquettes" }}
+      title="Charcoal briquettes & activated carbon"
+      lead="Coconut-shell charcoal and activated carbon, produced from Philippine byproducts and supplied in industrial volumes."
+    />
+
+    <ServiceSwitcher active="charcoal-briquettes" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="Product" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Value from the whole coconut
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Coconut shell is one of the most useful byproducts in Philippine agriculture. Carbonised and pressed, it becomes a clean-burning briquette; activated, it becomes one of the most effective filtration media available.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          We distribute both at commercial scale, bridging local producers with large-scale industrial buyers &mdash; the same bridge that LAVS Trading was built to be.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Inquire about commercial supply</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-gildasio-mota-2148932169-36063662.jpg" alt="Coconut shell raw material" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Applications -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Applications" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">Where it is used</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Grade, mesh size, and packaging are confirmed against your requirement.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">Industrial and export buyers</div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        {gallery.map((g) => (
+          <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Sourcing charcoal briquettes or activated carbon?"
+      subline="Tell us the grade and volume you need."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

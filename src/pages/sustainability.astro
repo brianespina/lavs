@@ -1,0 +1,130 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Hero from "../components/Hero.astro";
+import SectionLabel from "../components/SectionLabel.astro";
+
+const commitments = [
+  {
+    bar: "bg-forest",
+    num: "01",
+    title: "Eco-friendly commercial solutions",
+    body: "Through LAVS Trading, we supply sustainable, nature-based Philippine byproducts — giving industries practical, eco-friendly tools to protect natural landscapes.",
+    image: "/images/pexels-katherine-a-photography-110685048-33653052.jpg",
+    alt: "Coco nets and erosion control in use",
+  },
+  {
+    bar: "bg-olive",
+    num: "02",
+    title: "Community agriculture programs",
+    body: "Through Cortijo de Palsabangon, we uplift local producers, bridge the gap between farmers and broader markets, and conduct community agriculture training to empower the next generation of growers.",
+    image: "/images/pexels-muhamad-guruh-budi-hartono-430167744-37321079.jpg",
+    alt: "Community training and outreach",
+  },
+  {
+    bar: "bg-gold",
+    num: "03",
+    title: "Institutional alignment",
+    body: "We align our standards and programs with key national bodies to ensure our practices meet the highest national benchmarks.",
+    image: "/images/pexels-th-tieu-707737703-33729068.jpg",
+    alt: "Accreditation and partnership",
+  },
+];
+
+const bodies = [
+  { code: "DA", name: "Department of Agriculture", logo: null },
+  { code: "DA-ATI", name: "Agricultural Training Institute", logo: "/logos/da-ati.png" },
+  { code: "PCA", name: "Philippine Coconut Authority", logo: null },
+  { code: "TESDA", name: "Technical Education & Skills Development Authority", logo: "/logos/tesda.png" },
+  { code: "DepEd", name: "Department of Education", logo: "/logos/deped.png" },
+  { code: "DTI", name: "Department of Trade and Industry", logo: "/logos/dti.png" },
+];
+
+const gallery = [
+  { src: "/images/pexels-quang-nguyen-vinh-222549-14024972.jpg", alt: "Farm and hardscaping wide shot", span: "col-span-2 row-span-2" },
+  { src: "/images/pexels-eren-arici-718198662-33277655.jpg", alt: "Project photo", span: "" },
+  { src: "/images/pexels-markus-winkler-1430818-5156617.jpg", alt: "Project photo", span: "" },
+  { src: "/images/pexels-oktay-koseoglu-42034955-38040480.jpg", alt: "Project photo", span: "" },
+  { src: "/images/pexels-chris-wade-ntezicimpa-564856410-31448427.jpg", alt: "Project photo", span: "" },
+  { src: "/images/pexels-huck-owen-fajardo-2155362555-33686579.jpg", alt: "Project photo", span: "" },
+  { src: "/images/pexels-vi-t-anh-nguy-n-2150409023-31231189.jpg", alt: "Community program", span: "col-span-2" },
+  { src: "/images/pexels-nc-farm-bureau-mark-6791938.jpg", alt: "Project photo", span: "" },
+];
+---
+
+<BaseLayout title="Sustainability & Community">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="sustainability" />
+
+    <Hero
+      image="/images/pexels-quang-nguyen-vinh-222549-14024972.jpg"
+      imageAlt="Landscape and community program"
+      eyebrow="Sustainability & community"
+      title="Building a greener future"
+      lead="At LAVS Trading and Development Services Inc. and Cortijo de Palsabangon Farm, sustainability is not just an initiative — it is the foundation of everything we do. Commercial growth, land development, and agriculture must go hand-in-hand with environmental stewardship and community empowerment."
+    />
+
+    <!-- Three commitments -->
+    <div class="band-x flex flex-col bg-white py-16 lg:py-[88px]">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-[2px] sm:bg-border-light">
+        {commitments.map((c, i) => (
+          <div class={`flex flex-col gap-6 bg-white ${i === 0 ? "sm:pr-8" : i === 1 ? "sm:px-8" : "sm:pl-8"}`}>
+            <div class={`h-[6px] w-full ${c.bar}`}></div>
+            <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold">{c.num}</div>
+            <div class="text-pretty text-2xl font-semibold leading-[1.25] text-forest lg:text-[26px]">{c.title}</div>
+            <div class="text-pretty text-[15px] leading-[1.68] text-body">{c.body}</div>
+            <div class="relative mt-auto h-[190px] overflow-hidden rounded-tl-panel rounded-br-panel">
+              <img src={c.image} alt={c.alt} class="h-full w-full object-cover" loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Aligned with national bodies -->
+    <div class="band-x flex flex-col gap-9 bg-bone py-14 lg:py-[72px]">
+      <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-baseline sm:justify-between">
+        <SectionLabel text="Aligned with national bodies" color="text-muted" />
+        <div class="text-sm text-muted">Standards, programs, and accreditation</div>
+      </div>
+      <div class="grid grid-cols-1 gap-[2px] bg-border-light sm:grid-cols-2 lg:grid-cols-3">
+        {bodies.map((b) => (
+          <div class="flex flex-col gap-2 bg-white p-[30px]">
+            {b.logo ? (
+              <div class="flex items-center gap-[10px]">
+                <img src={b.logo} alt={b.code} class="h-7 w-auto object-contain" />
+                <div class="text-[15px] font-semibold tracking-[.1em] text-forest">{b.code}</div>
+              </div>
+            ) : (
+              <div class="text-[15px] font-semibold tracking-[.1em] text-forest">{b.code}</div>
+            )}
+            <div class="text-[13.5px] leading-[1.55] text-body">{b.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="band-x flex flex-col gap-10 bg-white py-16 lg:py-[88px]">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Gallery" color="text-muted" />
+          <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">The work, on the ground</div>
+        </div>
+        <div class="max-w-[360px] text-pretty text-sm leading-[1.6] text-muted">
+          Site projects, farm operations, training batches, and community programs.
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:auto-rows-[230px]">
+        {gallery.map((g) => (
+          <div class={`relative min-h-[160px] overflow-hidden rounded-tl-panel rounded-br-panel lg:min-h-0 ${g.span}`}>
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
