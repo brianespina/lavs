@@ -159,20 +159,27 @@ const underline =
 
 <script>
   const CLOSE_DELAY = 260;
-  let closeTimer: ReturnType<typeof setTimeout> | undefined;
+  // One timer per panel — a single shared timer would let opening the
+  // second dropdown cancel the first dropdown's pending close.
+  const closeTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
 
   function showPanel(panel: HTMLElement) {
-    clearTimeout(closeTimer);
+    const timer = closeTimers.get(panel);
+    if (timer) clearTimeout(timer);
     panel.classList.remove("pointer-events-none", "opacity-0");
     panel.classList.add("opacity-100");
   }
 
   function scheduleHide(panel: HTMLElement) {
-    clearTimeout(closeTimer);
-    closeTimer = setTimeout(() => {
-      panel.classList.add("pointer-events-none", "opacity-0");
-      panel.classList.remove("opacity-100");
-    }, CLOSE_DELAY);
+    const existing = closeTimers.get(panel);
+    if (existing) clearTimeout(existing);
+    closeTimers.set(
+      panel,
+      setTimeout(() => {
+        panel.classList.add("pointer-events-none", "opacity-0");
+        panel.classList.remove("opacity-100");
+      }, CLOSE_DELAY),
+    );
   }
 
   document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((trigger) => {
