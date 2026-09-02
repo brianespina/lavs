@@ -23,7 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# design handoff (source deliverable, not part of the build — see docs/design-handoff.md)
+# design handoff (source deliverable, not part of the build — see docs/design-handoff-source.md)
 handoff/
 
 # local Claude Code session state

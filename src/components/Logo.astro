@@ -14,8 +14,8 @@ const { size = 46, variant = "dark", class: className } = Astro.props;
 
 const fills =
   variant === "dark"
-    ? { a: "#F7F4ED", b: "#8FAE5C", c: "#F7F4ED", d: "#E0AE58" }
-    : { a: "#143B26", b: "#6E8B3D", c: "#143B26", d: "#C08A2E" };
+    ? { a: "fill-bone", b: "fill-sage", c: "fill-bone", d: "fill-gold-light" }
+    : { a: "fill-forest", b: "fill-olive", c: "fill-forest", d: "fill-gold" };
 ---
 
 <svg
@@ -25,8 +25,8 @@ const fills =
   class={["flex-none", className].filter(Boolean).join(" ")}
   aria-hidden="true"
 >
-  <path d="M0 0 H45 A45 45 0 0 1 0 45 Z" fill={fills.a}></path>
-  <rect x="51" y="0" width="45" height="45" fill={fills.b}></rect>
-  <rect x="0" y="51" width="45" height="45" fill={fills.c}></rect>
-  <path d="M96 96 V51 A45 45 0 0 0 51 96 Z" fill={fills.d}></path>
+  <path d="M0 0 H45 A45 45 0 0 1 0 45 Z" class={fills.a}></path>
+  <rect x="51" y="0" width="45" height="45" class={fills.b}></rect>
+  <rect x="0" y="51" width="45" height="45" class={fills.c}></rect>
+  <path d="M96 96 V51 A45 45 0 0 0 51 96 Z" class={fills.d}></path>
 </svg>

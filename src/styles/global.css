@@ -33,6 +33,13 @@
   --color-muted-2: #a29a88;
   --color-placeholder: #a9a395;
 
+  /* Warm text-on-sand shades — not in the named handoff palette table, but
+     used consistently in the source .dc.html wherever body copy sits on
+     the `sand` background (Home + News sustainability sections). */
+  --color-clay: #7a6438;
+  --color-clay-deep: #4a4132;
+  --color-clay-darker: #3a3226;
+
   /*
     Corner system — "Diagonal pair".
     Every rounded surface curves only its top-left and bottom-right corners.

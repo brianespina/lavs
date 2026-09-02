@@ -36,6 +36,14 @@ color or radius isn't covered by a token below, add the token first, then use it
 | `muted` | `#767E82` | Eyebrows/captions on light |
 | `muted-2` | `#A29A88` | Placeholder label text |
 | `placeholder` | `#A9A395` | Form field placeholder text |
+| `clay` | `#7A6438` | Eyebrow text on `sand` background |
+| `clay-deep` | `#4A4132` | Body text on `sand` background |
+| `clay-darker` | `#3A3226` | List/bullet text on `sand` background |
+
+`clay*` aren't in the handoff's named palette table — they're literal values used
+consistently in the source `.dc.html` wherever copy sits on the `sand` band (Home
+and News sustainability sections), pulled out into tokens here rather than left as
+one-off arbitrary hex.
 
 Use as `bg-forest`, `text-mint`, `border-gold`, etc. Rule from the handoff: max two
 background colors per band sequence, alternating light (`white`/`bone`/`bone-deep`)
