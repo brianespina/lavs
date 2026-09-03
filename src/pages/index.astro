@@ -59,16 +59,22 @@ const accreditations = [
     <SiteNav active="home" />
 
     <!-- Hero -->
-    <div class="relative h-[420px] bg-forest lg:h-[660px]">
+    <div class="relative bg-forest">
       <div class="absolute inset-0">
-        <img
-          src="/images/hero-still.jpg"
-          alt="Aerial view of Philippine farmland and agricultural land development"
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="/images/hero-still.jpg"
+          aria-label="Aerial view of Philippine farmland and agricultural land development"
           class="h-full w-full object-cover"
-        />
+        >
+          <source src="/videos/hero-section-1900.webm" type="video/webm" />
+        </video>
       </div>
       <div class="absolute inset-0 bg-forest opacity-[.62]"></div>
-      <div class="band-x pointer-events-none absolute inset-0 flex flex-col justify-center gap-5 py-10 lg:gap-[30px]">
+      <div class="band-x pointer-events-none relative flex min-h-[560px] flex-col justify-center gap-5 py-10 lg:min-h-[760px] lg:gap-[30px]">
         <div class="text-[10px] font-semibold uppercase tracking-[.2em] text-gold-light lg:text-[13px] lg:tracking-[.24em]">
           LAVS Trading &amp; Development Services Inc.
         </div>

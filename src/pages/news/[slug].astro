@@ -28,12 +28,12 @@ const categoryHref: Record<string, string> = {
   <div class="overflow-hidden bg-white">
     <SiteNav active="news" />
 
-    <div class="relative h-[280px] bg-forest lg:h-[360px]">
+    <div class="relative bg-forest">
       <div class="absolute inset-0">
         <img src={entry.data.coverImage} alt={entry.data.title} class="h-full w-full object-cover" />
       </div>
       <div class="absolute inset-0 bg-forest opacity-[.68]"></div>
-      <div class="band-x pointer-events-none absolute inset-0 flex flex-col justify-center gap-4 py-10">
+      <div class="band-x pointer-events-none relative flex min-h-[280px] flex-col justify-center gap-4 py-10 lg:min-h-[360px]">
         <div class="flex items-center gap-3">
           <div class={`px-[10px] py-[6px] text-[10px] font-semibold uppercase tracking-[.14em] ${CATEGORY_BADGE_CLASS[entry.data.category]}`}>
             {entry.data.category}

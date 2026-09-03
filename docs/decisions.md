@@ -35,7 +35,11 @@ site-wide, since it's a shared component used on every page). This gives a
 usable-on-a-phone site today without pretending the in-between breakpoints
 were actually designed — the desktop (`lg:`) values are still the pixel-exact
 source of truth from the handoff. Treat this as an interim best-effort, not a
-substitute for real tablet/mobile design.
+substitute for real tablet/mobile design. For the one mobile-breakpoint page
+the handoff does specify (`Mobile-Home.dc.html`), use its concrete values
+over anything the desktop-partially-responsive pass inferred — e.g. the home
+hero is 560px on mobile per the reference (`src/pages/index.astro`), not the
+420px that had previously been picking the content into the band below it.
 
 ## Images
 
@@ -53,6 +57,14 @@ JPEGs served as-is.
 
 Accreditation logos (TESDA, DA-ATI — real; PCA/DepEd/DTI/SEC — placeholders)
 are in `public/logos/`.
+
+Hero video: `public/videos/hero-section-1900.webm` is the real handoff asset
+(16 MB, 1900×1068, 27 s loop). It's referenced with a plain `<video>` tag on
+`src/pages/index.astro` — no `astro:assets` handling either (there's no
+equivalent pipeline for video, so "unoptimized, served as-is" is the
+reality). `images/hero-still.jpg` stays around as the video's `poster`
+attribute (first paint / play-blocked fallback), so the same file is still
+used by the home hero — just as a poster now instead of the primary visual.
 
 ## Cortijo has no logo mark
 
@@ -103,3 +115,48 @@ later in the `class` attribute). `Button.astro` avoids this by taking a typed
 `radius` prop instead of expecting callers to override radius via `class`.
 Follow the same pattern for any future component prop that has specificity
 implications.
+
+## Mobile menu has expandable submenus (not in the handoff)
+
+The handoff's `Mobile-Home.dc.html` spec is five flat items — the desktop
+dropdown menus (7 LAVS Trading links, 3 Cortijo links) had no mobile
+equivalent, making every service page unreachable on mobile. By user
+direction (2026-09-03) the two enterprise items in the mobile panel are
+expandable accordions (`data-submenu-toggle` in `SiteNav.astro`), exposing
+the same link sets as the desktop dropdowns, indented one level. Tap
+targets stay ≥ 44px per the handoff's mobile rule. If a real mobile nav
+design ever arrives, this is the thing to replace.
+
+## Hero heights are minimums, not fixed
+
+The handoff specifies fixed hero heights (660px home, 440px interior,
+360px article). Fixed heights clip whenever content runs longer than the
+spec copy — observed on the Cortijo mobile hero, where the lead overflowed
+the 320px box. All three hero spots (`Hero.astro`, `src/pages/index.astro`,
+`src/pages/news/[slug].astro`) now express the spec heights as `min-h-*`
+with the content layer in normal flow (`relative` instead of
+`absolute inset-0`), so longer content grows the hero and the background
+photo still covers it via `object-cover`. The spec values are preserved as
+the minimums — short content looks exactly as designed.
+
+## Home hero is 760px on desktop, not the spec's 660px
+
+The handoff specs the desktop home hero at 660px. By user direction
+(2026-09-03) it's `lg:h-[760px]` in `src/pages/index.astro` — more of the
+video above the fold. Mobile stays at the spec's 560px. If this is ever
+revisited, the spec value to compare against is in
+`docs/design-handoff-source.md` ("Hero — 660px").
+
+## Nav active marker sits above the label, not below
+
+The handoff specs the active nav item as a 2px `#E0AE58` underline at
+`bottom:26px`. By user direction (2026-09-03) the marker is a *top* line
+instead — `top-[26px]` on the shared `underline` class in `SiteNav.astro` —
+so all five desktop nav items carry it in the same place. There's a subtlety
+that makes this non-trivial: plain links render inline (their `py-[33px]`
+padding doesn't contribute to the `position: relative` box the marker is
+placed against) while dropdown triggers are `flex` blocks, so one offset
+value originally landed in two different places. `navLink` now includes
+`flex items-center` for every trigger — identical box geometry everywhere —
+which is what makes the single `top-[26px]` value consistent. Don't remove
+the `flex` from `navLink` without re-checking marker alignment.

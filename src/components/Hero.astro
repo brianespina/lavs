@@ -2,10 +2,11 @@
 import SectionLabel from "./SectionLabel.astro";
 
 /**
- * Standard interior hero: 440px, photo background at .68 forest overlay,
- * eyebrow (or breadcrumb) + headline + lead. Used on every interior page
- * except Contact, which is a flat band instead (see ContactHero pattern
- * inline on that page).
+ * Standard interior hero: min 320px (lg: 440px), photo background at .68
+ * forest overlay, eyebrow (or breadcrumb) + headline + lead. Used on every
+ * interior page except Contact, which is a flat band instead (see
+ * ContactHero pattern inline on that page). Height is a minimum only —
+ * content longer than usual grows the hero instead of clipping.
  */
 interface Breadcrumb {
   parentLabel: string;
@@ -25,12 +26,12 @@ interface Props {
 const { image, imageAlt, title, lead, eyebrow, breadcrumb } = Astro.props;
 ---
 
-<div class="relative h-[320px] bg-forest lg:h-[440px]">
+<div class="relative bg-forest">
   <div class="absolute inset-0">
     <img src={image} alt={imageAlt} class="h-full w-full object-cover" />
   </div>
   <div class="absolute inset-0 bg-forest opacity-[.68]"></div>
-  <div class="band-x pointer-events-none absolute inset-0 flex flex-col justify-center gap-4 py-10 lg:gap-[22px]">
+  <div class="band-x pointer-events-none relative flex min-h-[320px] flex-col justify-center gap-4 py-10 lg:min-h-[440px] lg:gap-[22px]">
     {
       breadcrumb ? (
         <div class="pointer-events-auto flex items-center gap-[10px] text-[11.5px] font-semibold uppercase tracking-[.16em]">
