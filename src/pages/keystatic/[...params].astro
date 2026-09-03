@@ -1,0 +1,21 @@
+---
+// Explicit override of Keystatic's /keystatic route — the injected default
+// page renders no <head> at all, so no favicon ever showed. Keep it minimal:
+// another Keystatic <head> + the same <Keystatic> component it uses
+// internally, nothing else.
+import KeystaticDefaultPage from "@keystatic/astro/internal/keystatic-astro-page.astro";
+
+export const prerender = false;
+---
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Keystatic — LAVS Trading &amp; Development Services Inc.</title>
+  </head>
+  <body>
+    <KeystaticDefaultPage />
+  </body>
+</html>
