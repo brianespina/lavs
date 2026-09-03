@@ -95,9 +95,12 @@ badges, the utility bar.
 
 - Design width is 1440px. Every full-width band uses the `.band-x` utility
   (defined in `global.css`) for the full-bleed gutter formula:
-  `padding-inline: max(48px, calc((100% - 1440px) / 2 + 48px))`. Content stays
-  measured to 1440px; extra width beyond that goes to the gutters, never the
-  columns.
+  `padding-inline: max(48px, calc((100% - 1440px) / 2 + 48px))` — from `lg:`
+  (1024px) up only. Content stays measured to 1440px; extra width beyond
+  that goes to the gutters, never the columns. Below `lg:`, `.band-x` is a
+  flat 20px side gutter, matching the handoff's 390px mobile reference
+  ("side gutter 20px throughout") — the desktop floor of 48px is not meant
+  to apply at phone widths.
 - Grid dividers are `gap-[2px]` over a `bg-border-light` (or dark equivalent)
   parent, not per-cell borders — see `NumberedGrid.astro`.
 - Sibling groups use flex/grid + `gap-*`, never margin-based spacing.

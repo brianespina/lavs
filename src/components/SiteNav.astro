@@ -24,10 +24,15 @@ interface Props {
 const { active = "home" } = Astro.props;
 
 const navLink =
-  "relative py-[33px] text-[12.5px] font-medium text-bone whitespace-nowrap hover:text-gold-light transition-colors";
+  "relative flex items-center py-[33px] text-[12.5px] font-medium text-bone whitespace-nowrap hover:text-gold-light transition-colors";
 
+// Positioned above the label by user direction (supersedes the handoff's
+// "bottom:26px" — see docs/decisions.md). All five triggers share one box
+// geometry: navLink's `flex` makes every trigger a block-level box whose
+// padding contributes to its height, so this offset lands identically on
+// plain links and dropdown parents alike.
 const underline =
-  "absolute left-0 right-0 bottom-[26px] h-[2px] bg-gold-light";
+  "absolute left-0 right-0 top-[26px] h-[2px] bg-gold-light";
 ---
 
 <header class="relative z-50 font-sans">
@@ -74,7 +79,7 @@ const underline =
       </div>
 
       <div class="group relative" data-dropdown="lavs">
-        <div class={`${navLink} flex cursor-pointer items-center gap-[6px]`}>
+        <div class={`${navLink} cursor-pointer gap-[6px]`}>
           LAVS Trading &amp; Development
           <svg width="8" height="5" viewBox="0 0 8 5" fill="none" aria-hidden="true">
             <path d="M1 1L4 4L7 1" class="stroke-sage" stroke-width="1.4"></path>
@@ -99,7 +104,7 @@ const underline =
       </div>
 
       <div class="group relative" data-dropdown="cortijo">
-        <div class={`${navLink} flex cursor-pointer items-center gap-[6px]`}>
+        <div class={`${navLink} cursor-pointer gap-[6px]`}>
           Cortijo de Palsabangon Farm
           <svg width="8" height="5" viewBox="0 0 8 5" fill="none" aria-hidden="true">
             <path d="M1 1L4 4L7 1" class="stroke-sage" stroke-width="1.4"></path>
@@ -148,8 +153,46 @@ const underline =
   <!-- Mobile panel -->
   <div data-mobile-panel class="relative z-[25] hidden flex-col bg-forest-deep px-5 pb-[26px] pt-2 lg:hidden">
     <a href="/" class={`border-b border-mint/20 py-4 text-[15px] ${active === "home" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Home</a>
-    <a href="/lavs-trading" class={`border-b border-mint/20 py-4 text-[15px] ${active === "lavs" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>LAVS Trading &amp; Development</a>
-    <a href="/cortijo" class={`border-b border-mint/20 py-4 text-[15px] ${active === "cortijo" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Cortijo de Palsabangon Farm</a>
+    <div class="border-b border-mint/20">
+      <button
+        type="button"
+        data-submenu-toggle
+        aria-expanded="false"
+        class={`flex min-h-11 w-full items-center justify-between gap-3 py-4 text-left text-[15px] ${active === "lavs" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}
+      >
+        LAVS Trading &amp; Development
+        <svg width="10" height="6" viewBox="0 0 8 5" fill="none" aria-hidden="true" class="shrink-0 transition-transform">
+          <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4"></path>
+        </svg>
+      </button>
+      <div data-submenu class="hidden flex-col gap-1 pb-4 pl-4">
+        <a href="/lavs-trading" class="py-3 text-sm font-semibold text-bone">Overview</a>
+        <a href="/lavs-trading/landscaping" class="py-3 text-sm text-mint">Landscaping</a>
+        <a href="/lavs-trading/farm-development" class="py-3 text-sm text-mint">Farm Development</a>
+        <a href="/lavs-trading/coco-nets" class="py-3 text-sm text-mint">Coco Nets / Geonets</a>
+        <a href="/lavs-trading/charcoal-briquettes" class="py-3 text-sm text-mint">Charcoal Briquettes</a>
+        <a href="/lavs-trading/vco-oil" class="py-3 text-sm text-mint">VCO Oil</a>
+        <a href="/lavs-trading#who-we-help" class="py-3 text-sm text-mint">Who We Help</a>
+      </div>
+    </div>
+    <div class="border-b border-mint/20">
+      <button
+        type="button"
+        data-submenu-toggle
+        aria-expanded="false"
+        class={`flex min-h-11 w-full items-center justify-between gap-3 py-4 text-left text-[15px] ${active === "cortijo" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}
+      >
+        Cortijo de Palsabangon Farm
+        <svg width="10" height="6" viewBox="0 0 8 5" fill="none" aria-hidden="true" class="shrink-0 transition-transform">
+          <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4"></path>
+        </svg>
+      </button>
+      <div data-submenu class="hidden flex-col gap-1 pb-4 pl-4">
+        <a href="/cortijo" class="py-3 text-sm text-mint">Agricultural Solutions &amp; Distribution</a>
+        <a href="/cortijo" class="py-3 text-sm text-mint">Agricultural Education &amp; Training</a>
+        <a href="/cortijo" class="py-3 text-sm text-mint">Credentials &amp; Accreditations</a>
+      </div>
+    </div>
     <a href="/sustainability" class={`border-b border-mint/20 py-4 text-[15px] ${active === "sustainability" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Sustainability &amp; Community</a>
     <a href="/news" class={`py-4 text-[15px] ${active === "news" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>News &amp; Media</a>
     <a href="/contact" class="mt-5 rounded-tl-control rounded-br-control bg-gold py-4 text-center text-[12.5px] font-semibold uppercase tracking-[.08em] text-ink">Contact Us</a>
@@ -199,5 +242,20 @@ const underline =
     const open = mobilePanel?.classList.toggle("flex");
     mobilePanel?.classList.toggle("hidden");
     mobileToggle.setAttribute("aria-expanded", String(Boolean(open)));
+  });
+
+  // Mobile submenus: the desktop dropdown items are unreachable on mobile
+  // unless the two enterprise items expand in place. One tap toggles; the
+  // chevron flips to match.
+  document.querySelectorAll<HTMLButtonElement>("[data-submenu-toggle]").forEach((toggle) => {
+    const submenu = toggle.parentElement?.querySelector<HTMLElement>("[data-submenu]");
+    const chevron = toggle.querySelector("svg");
+    if (!submenu) return;
+    toggle.addEventListener("click", () => {
+      const open = submenu.classList.toggle("flex");
+      submenu.classList.toggle("hidden", !open);
+      toggle.setAttribute("aria-expanded", String(Boolean(open)));
+      chevron?.classList.toggle("rotate-180", Boolean(open));
+    });
   });
 </script>

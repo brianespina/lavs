@@ -77,11 +77,20 @@
 @layer utilities {
   /*
     Full-bleed gutter formula: every band spans the viewport while
-    content stays measured to the 1440px design width.
+    content stays measured to the 1440px design width. Mobile-first:
+    the handoff's 390px reference uses a 20px side gutter; the desktop
+    floor (48px, exactly what the formula gives at 1440px) applies from
+    the lg breakpoint up, where the desktop spec governs.
   */
   .band-x {
-    padding-left: max(48px, calc((100% - 1440px) / 2 + 48px));
-    padding-right: max(48px, calc((100% - 1440px) / 2 + 48px));
+    padding-left: 20px;
+    padding-right: 20px;
     box-sizing: border-box;
+  }
+  @media (min-width: 1024px) {
+    .band-x {
+      padding-left: max(48px, calc((100% - 1440px) / 2 + 48px));
+      padding-right: max(48px, calc((100% - 1440px) / 2 + 48px));
+    }
   }
 }
