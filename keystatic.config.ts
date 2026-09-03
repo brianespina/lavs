@@ -14,6 +14,11 @@ export default config({
   cloud: {
     project: "lavs-trading/lavs",
   },
+  ui: {
+    brand: {
+      name: "LAVS Trading & Development",
+    },
+  },
   collections: {
     news: collection({
       label: "News & Media",

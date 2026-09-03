@@ -9,7 +9,8 @@ without a GitHub account or touching code.
 - **`keystatic.config.ts`** (project root) — the CMS schema. Defines one
   collection, `news`, with fields: `title` (also the slug), `category`
   (select), `date`, `featured` (checkbox), `excerpt`, `coverImage`, and
-  `body` (Markdoc rich text).
+  `body` (Markdoc rich text). A `ui.brand.name` sets the admin UI's title,
+  but Keystatic's own `ui` options don't cover the favicon — see below.
 - **Storage is `kind: 'cloud'`** — per Keystatic's own docs, a Cloud project
   is connected to a specific GitHub repository. Editors authenticate through
   Keystatic Cloud (no GitHub account needed on their end), but saved entries
@@ -69,6 +70,25 @@ added (matching the `workers.dev` URL already registered as this project's
 Primary URL in Keystatic Cloud). Every other page is still fully static —
 `astro build` prerenders them same as before; only the two Keystatic routes
 run on-demand on Cloudflare Workers at request time.
+
+## Favicon in the admin UI
+
+`/keystatic` rendered no favicon at all — its generated HTML (via
+`@keystatic/astro/internal/keystatic-page.js`) has no `<link rel="icon">`,
+and Keystatic's documented `ui.brand.mark` option only brands the UI's
+in-app header, not the page `<head>`. This repo's own little crack: the
+repo has **no UI-layout files of its own**, so `rg -l "rel=\"icon\"" src/
+public/ || true` returned nothing beyond `src/layouts/BaseLayout.astro`.
+The fix is a `keystatic.config.ts` `ui.brand` tweak plus falling back to
+one of two browser behaviors:
+
+1. The browser tries `/favicon.ico` at the request of any page without an
+   explicit `<link rel="icon">` (and `public/favicon.ico` exists here).
+
+If that ever isn't enough (some browsers skip it for on-demand Worker
+routes), the proper fix is a tiny custom UI wrapper file in `src/pages/`
+that adds `<link rel="icon" href="/favicon.svg">` around the rendered
+Keystatic app — flag it here instead of guessing.
 
 ## What's not set up yet
 
