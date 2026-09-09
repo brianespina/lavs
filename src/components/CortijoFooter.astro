@@ -1,0 +1,82 @@
+---
+import Logo from "./Logo.astro";
+import CortijoLockup from "./CortijoLockup.astro";
+
+/**
+ * Page-local footer for /cortijo. Light, not dark — the inverse of the
+ * LAVS footer, a deliberate signal that this is a different brand. See
+ * docs/design-system.md#cortijo-brand-system.
+ */
+const teachLinks = [
+  { href: "#programs", label: "TESDA programs" },
+  { href: "#programs", label: "Micro-credentials" },
+  { href: "#programs", label: "Cooperative extension" },
+  { href: "#credentials", label: "Assessment & certification" },
+];
+
+const schoolLinks = [
+  { href: "#farm", label: "The farm" },
+  { href: "#credentials", label: "Credentials" },
+  { href: "#who", label: "Who we help" },
+  { href: "/contact", label: "Enroll in Agriculture Courses" },
+];
+
+const footerLink = "text-cortijo-ink hover:text-cortijo-terracotta transition-colors";
+---
+
+<footer class="band-x flex flex-col gap-[52px] bg-cortijo-paper py-[76px] pb-10 font-sans">
+  <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr] lg:gap-[52px]">
+    <div class="flex flex-col gap-5">
+      <CortijoLockup context="footer" />
+      <div class="max-w-[320px] text-pretty text-[13.5px] leading-[1.7] text-cortijo-ink">
+        An agricultural school and assessment center on a working 5.2-hectare farm &mdash; training farmers, cooperatives, and students to national standards.
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <div class="border border-cortijo-border-2 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-cortijo-ink">DA-ATI Learning Site</div>
+        <div class="border border-cortijo-border-2 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-cortijo-ink">TESDA Farm School</div>
+        <div class="border border-cortijo-border-2 px-[11px] py-[7px] text-[10px] font-semibold uppercase tracking-[.12em] text-cortijo-ink">Assessment Center</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <div class="text-[10.5px] font-semibold uppercase tracking-[.2em] text-cortijo-terracotta">What we teach</div>
+      <div class="flex flex-col gap-[11px] text-[13.5px]">
+        {teachLinks.map((l) => <a href={l.href} class={footerLink}>{l.label}</a>)}
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <div class="text-[10.5px] font-semibold uppercase tracking-[.2em] text-cortijo-terracotta">The school</div>
+      <div class="flex flex-col gap-[11px] text-[13.5px]">
+        {schoolLinks.map((l) => <a href={l.href} class={footerLink}>{l.label}</a>)}
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-[18px]">
+      <div class="text-[10.5px] font-semibold uppercase tracking-[.2em] text-cortijo-terracotta">Part of the LAVS group</div>
+      <a
+        href="/"
+        class="flex flex-col gap-[14px] rounded-tl-cortijo-tile rounded-tr-cortijo-tile bg-cortijo-olive-ink p-6 hover:bg-cortijo-olive-ink-deep transition-colors"
+      >
+        <div class="flex items-center gap-3">
+          <Logo size={34} variant="cortijo" />
+          <div class="flex flex-col gap-1">
+            <div class="text-[17px] font-bold leading-none tracking-[.08em] text-cortijo-bone">LAVS</div>
+            <div class="whitespace-nowrap text-[6.5px] font-medium uppercase tracking-[.18em] text-cortijo-sage">Trading &amp; Development Services Inc.</div>
+          </div>
+        </div>
+        <div class="text-pretty text-[12.5px] leading-[1.6] text-cortijo-sage-pale">Our sister company &mdash; commercial trade, land development, and agricultural supply.</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-[.14em] text-cortijo-clay">Visit LAVS Trading &rarr;</div>
+      </a>
+      <div class="text-[13.5px] leading-[1.7] text-cortijo-ink">0917 143 1060<br />lavstradecorp@gmail.com</div>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-start gap-3 border-t border-cortijo-border pt-[26px] sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+    <div class="text-xs text-cortijo-muted">&copy; 2026 Cortijo de Palsabangon Farm OPC &middot; Quezon Province, Philippines</div>
+    <div class="flex gap-6 text-xs text-cortijo-muted">
+      <div class="cursor-pointer hover:text-cortijo-terracotta">Privacy</div>
+      <div class="cursor-pointer hover:text-cortijo-terracotta">Terms</div>
+    </div>
+  </div>
+</footer>

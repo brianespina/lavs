@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import Button from "../../components/Button.astro";
+import NumberedGrid from "../../components/NumberedGrid.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+const scope = [
+  { num: "01", title: "Grafted Fruit Trees", body: "Grafted stock for reliable yield and a shorter wait to first harvest." },
+  { num: "02", title: "High-Value Seedlings", body: "Seedlings for crops with strong market demand and return per hectare." },
+  { num: "03", title: "Ornamental Plants", body: "Stock for landscaping, garden retail, and commercial planting programmes." },
+  { num: "04", title: "Soil Mixes", body: "Blended growing media matched to species and container size." },
+  { num: "05", title: "Organic Soil Amendments", body: "Compost and organic inputs that build soil health ahead of planting." },
+];
+
+const whoFor = [
+  { title: "Farmers & Cooperatives", body: "Planting stock and soil inputs supplied at the volumes a real planting season needs." },
+  { title: "Landscaping & Farm Development Clients", body: "Stock supplied alongside our own landscaping and farm development projects." },
+  { title: "Nurseries & Garden Retailers", body: "Wholesale supply for buyers selling on to growers and gardeners." },
+];
+
+const gallery = [
+  { src: "/images/pexels-alfomedeiros-11573787.jpg", alt: "Nursery stock and seedlings" },
+  { src: "/images/pexels-eren-arici-718198662-33277655.jpg", alt: "Planting materials project" },
+  { src: "/images/pexels-huck-owen-fajardo-2155362555-33686579.jpg", alt: "Planting materials project" },
+];
+---
+
+<BaseLayout title="Planting Materials & Seedlings">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-alfomedeiros-11573787.jpg"
+      imageAlt="Nursery stock and seedlings ready for planting"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Planting Materials & Seedlings" }}
+      title="Planting materials & seedlings"
+      lead="Nursery stock and soil inputs for productive land — grafted fruit trees, high-value seedlings, ornamental plants, and the soil mixes and organic amendments that support them."
+    />
+
+    <ServiceSwitcher active="planting-materials-seedlings" />
+
+    <!-- Overview -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:flex-row lg:items-start lg:gap-16 lg:py-20">
+      <div class="flex flex-[1.1] flex-col gap-[22px]">
+        <SectionLabel text="Product" color="text-muted" />
+        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[34px]">
+          Nursery stock, ready to plant
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Stock is only as good as what it's grown in. We supply grafted fruit trees, high-value seedlings, and ornamental plants alongside the soil mixes and organic amendments that give them a real chance to establish.
+        </div>
+        <div class="text-pretty text-[15.5px] leading-[1.72] text-body">
+          Supplied to growers, cooperatives, and retailers at volume, and used directly on our own landscaping and farm development projects &mdash; we don't sell stock we wouldn't plant ourselves.
+        </div>
+        <div class="flex pt-[10px]">
+          <Button href="/contact" variant="gold" pad="px-[26px] py-4">Inquire about commercial supply</Button>
+        </div>
+      </div>
+      <div class="relative h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[420px]">
+        <img src="/images/pexels-markus-winkler-1430818-5156617.jpg" alt="Planting stock ready for delivery" class="h-full w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Scope of work -->
+    <div class="band-x flex flex-col gap-8 bg-bone py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="Scope of work" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">What we supply</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Species, quantities, and packaging are confirmed against your requirement.
+        </div>
+      </div>
+      <NumberedGrid items={scope} columns={2} theme="light" />
+    </div>
+
+    <!-- Who this is for -->
+    <div class="band-x flex flex-col gap-8 bg-forest py-14 lg:gap-11 lg:py-20">
+      <div class="flex flex-col gap-[14px]">
+        <SectionLabel text="Who this is for" color="text-sage" />
+        <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-bone lg:text-[34px]">Growers, developers, and retailers</div>
+      </div>
+      <NumberedGrid items={whoFor.map((w) => ({ ...w, num: "" }))} columns={3} theme="dark" />
+      <div class="grid grid-cols-1 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+        {gallery.map((g) => (
+          <div class="relative h-[220px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[280px]">
+            <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Need planting stock or soil inputs at volume?"
+      subline="Tell us the species, quantities, and timeline."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

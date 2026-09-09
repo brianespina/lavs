@@ -9,24 +9,63 @@ implementation detail, but this is the contract other pages should code against.
 ### `layouts/BaseLayout.astro`
 Props: `title` (required), `description?`.
 Renders `<html><head>` — meta, favicon, page `<title>`, Google Fonts links for
-Archivo — and a `<slot />` for the body. Every page wraps its content in this.
+Archivo and Bitter (Bitter is Cortijo-only, but loaded here so `CortijoPanel`
+works on Home/Sustainability without a second font request) — and a
+`<slot />` for the body. Every page except `/cortijo` wraps its content in
+this; `/cortijo` uses `layouts/CortijoLayout.astro` instead (see below).
+
+### `layouts/CortijoLayout.astro`
+Props: `title` (required), `description?`. Used only by `src/pages/cortijo.astro`.
+Same shape as `BaseLayout.astro` (meta, favicon, fonts, `<slot />`) but with a
+Cortijo-specific title suffix and default meta description — `/cortijo`
+doesn't share `SiteNav`/`SiteFooter` or the LAVS body defaults, so it doesn't
+share the layout either. See [`design-system.md`](./design-system.md#cortijo-brand-system).
 
 ## Navigation & chrome
 
 ### `SiteNav.astro`
-Props: `active?: "home" | "lavs" | "cortijo" | "sustainability" | "news" | "contact"`
+Props: `active?: "home" | "lavs" | "sustainability" | "news" | "contact"`
 (default `"home"`).
-The shared two-row nav (utility bar + main bar) plus the two enterprise
-dropdowns. Desktop dropdowns open on `mouseenter`, close 260ms after
-`mouseleave` (debounced via an inline `<script>` at the bottom of the
+The shared two-row nav (utility bar + main bar) plus the LAVS Trading &
+Development dropdown. Desktop dropdown opens on `mouseenter`, closes 260ms
+after `mouseleave` (debounced via an inline `<script>` at the bottom of the
 component — vanilla DOM, no framework). Below the `lg` breakpoint (1024px) it
-collapses to a hamburger + slide-down panel, matching the `Mobile-Home.dc.html`
-reference. This is the **only** component that's responsive on every page —
-see [`decisions.md`](./decisions.md) for why.
+collapses to a hamburger + slide-down panel. This is the **only** component
+that's responsive on every page — see [`decisions.md`](./decisions.md) for
+why. Cortijo de Palsabangon is **not** a nav destination — it's reached from
+inside LAVS pages via `CortijoPanel.astro`; see
+[`design-system.md`](./design-system.md#cortijo-brand-system).
 
 ### `SiteFooter.astro`
-No props. Global CTA band (photo + `.86` forest overlay) + the four-column
-footer link grid + bottom bar. Same on every page.
+No props. Global CTA band (photo + `.86` forest overlay, single CTA button)
++ the four-column footer link grid (Brand / LAVS Trading / Sustainability &
+community — which carries a `/cortijo` link — / Quick links) + bottom bar.
+Same on every page except `/cortijo`, which uses `CortijoFooter.astro`.
+
+### `CortijoNav.astro`
+Props: `showLavsStrip?: boolean` (default `true`). Page-local nav for
+`/cortijo` only — not used anywhere else. Renders the optional LAVS
+group-attribution strip plus Cortijo's own nav bar (same-page anchor links +
+an Enroll button). See [`design-system.md`](./design-system.md#cortijo-brand-system).
+
+### `CortijoFooter.astro`
+No props. Page-local footer for `/cortijo` only — light background, the
+inverse of `SiteFooter.astro`, a deliberate signal that this is a different
+brand. Includes the "Part of the LAVS group" attribution tile linking back
+to `/`.
+
+### `CortijoLockup.astro`
+Props: `context: "nav" | "footer" | "panel" | "panel-mobile"`, `class?`. The
+Cortijo type-only wordmark (no logo mark exists — see decisions.md) at the
+size/tone/descriptor combination used in each of its four call sites.
+
+### `CortijoPanel.astro`
+Props: `image` (required), `imageAlt?`. The "introduction panel" — Cortijo's
+framed window into a LAVS page, used on Home and Sustainability. The calling
+page supplies the outer LAVS-toned eyebrow/headline/caption furniture (same
+inline pattern used elsewhere on those pages); this component is just the
+Cortijo-toned panel itself. Mobile stacking follows `Mobile-Home.dc.html`
+exactly — the one part of the Cortijo work with a real mobile design.
 
 ## Content primitives
 
@@ -64,9 +103,10 @@ Home (which has its own bespoke 660px video-style hero, built inline in
 `index.astro`).
 
 ### `ServiceSwitcher.astro`
-Props: `active: "landscaping" | "farm-development" | "coco-nets" | "charcoal-briquettes" | "vco-oil"`.
-The five-tab strip on the LAVS service pages. Active tab gets a persistent
-gold-light fill.
+Props: `active: "landscaping" | "farm-development" | "planting-materials-seedlings" | "bulk-agro-industrial-supplies"`.
+The four-tab strip on the LAVS service pages. Active tab gets a persistent
+gold-light fill. Consolidated from five tabs to four by client direction —
+see [`decisions.md`](./decisions.md).
 
 ### `NumberedGrid.astro`
 Props: `items: { num, title, body }[]`, `columns?: 2 | 3` (default 2),
@@ -83,15 +123,9 @@ The closing CTA band every interior page ends on instead of a third filled
 button (`bone-deep` background, arrow-link CTA). Comes right before
 `<SiteFooter />` on every interior page.
 
-### `PathwayCard.astro`
-Props: `brand: "lavs" | "cortijo"`, `eyebrow`, `title`, `image`, `imageAlt`,
-`description`, `ctaLabel`, `ctaHref`, `icons: PathwayIcon[]` where
-`PathwayIcon = { href, label, svg }` and `svg` is raw inner-SVG markup
-(rendered via `set:html` — only ever pass fixed, internally-authored icon
-markup here, never user input). Home page only.
-
 ### `NewsCard.astro`
-Props: `image`, `imageAlt`, `category: "LAVS Trading" | "Cortijo" | "Sustainability"`,
+Props: `image`, `imageAlt`, `category: NewsCategory` (from `src/lib/news.ts` —
+currently `"LAVS Trading" | "Community & Education" | "Sustainability & Community"`),
 `date`, `title`, `excerpt`, `href`. The news/media card used on Home and
 News & Media.
 

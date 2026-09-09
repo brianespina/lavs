@@ -7,17 +7,17 @@ import SectionLabel from "../../components/SectionLabel.astro";
 import SlimCta from "../../components/SlimCta.astro";
 
 const services = [
-  { slug: "landscaping", title: "Landscaping", body: "Hardscape design, build, grading and drainage." },
-  { slug: "farm-development", title: "Farm Development", body: "Clearing, contouring, drainage and planting layout." },
-  { slug: "coco-nets", title: "Coco Nets / Geonets", body: "Coconut-fibre erosion control at industrial volume." },
-  { slug: "charcoal-briquettes", title: "Charcoal Briquettes", body: "Coconut-shell briquettes and activated carbon." },
-  { slug: "vco-oil", title: "VCO Oil", body: "Virgin coconut oil for commercial and export buyers." },
+  { href: "/lavs-trading/landscaping", title: "Landscaping", body: "Softscape and hardscape design, build and installation." },
+  { href: "/lavs-trading/farm-development", title: "Farm Development", body: "Site assessment, land clearing, soil work and planting." },
+  { href: "/lavs-trading/planting-materials-seedlings", title: "Planting Materials & Seedlings", body: "Grafted fruit trees, high-value seedlings, soil mixes and amendments." },
+  { href: "/lavs-trading/bulk-agro-industrial-supplies", title: "Bulk Agro-Industrial Supplies", body: "Coco nets, charcoal briquettes, VCO oil and raw materials." },
 ];
 
 const partners = [
   { rule: "border-forest", title: "Local Farmers & Landowners", body: "We help landowners unlock the true potential of their properties. Through hands-on farm development, site preparation, and intricate hardscape landscaping executed by an invested, employee-owned team, we build spaces that thrive." },
   { rule: "border-olive", title: "Commercial & Residential Properties", body: "We transform outdoor environments into functional, beautiful, and enduring spaces for commercial properties, developments, and residential clients — an approach combining structural strength with aesthetic design." },
   { rule: "border-gold", title: "Commercial & Industrial Clients", body: "We supply industrial-scale volumes of durable, eco-friendly materials — including erosion-control geotextiles, coco nets, and activated carbon — tailored to meet the strict demands of large-scale commercial and environmental projects." },
+  { rule: "border-sage", title: "Producers & Cooperatives", body: "We bridge dedicated local producers to the broader market. By taking on marketing and distribution we make sure high-quality Philippine goods reach the right buyers at fair prices — and we supply the seedlings, mats, and inputs those growers plant with." },
 ];
 ---
 
@@ -30,24 +30,24 @@ const partners = [
       imageAlt="Hardscape landscaping and site development"
       eyebrow="LAVS Trading & Development Services Inc."
       title="Commercial trade, land development & industrial solutions"
-      lead="We specialize in professional landscaping and commercial site development, alongside the bulk distribution of primary Philippine commodities."
+      lead="We specialize in professional landscaping, commercial site development, and optimizing agro-industrial supply chains through bulk commodities and certified planting materials."
     />
 
-    <!-- Five ways we work -->
+    <!-- Four ways we work -->
     <div class="band-x flex flex-col gap-8 bg-bone-deep py-12 lg:gap-8 lg:py-16">
       <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div class="flex flex-col gap-3">
           <SectionLabel text="Our services" color="text-muted" />
-          <div class="text-[26px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[32px]">Five ways we work</div>
+          <div class="text-[26px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[32px]">Four ways we work</div>
         </div>
         <div class="max-w-[360px] text-pretty text-[14.5px] leading-[1.6] text-muted">
-          Each service has its own page &mdash; scope, applications, and who it is for.
+          Each line has its own page &mdash; scope, applications, and who it is for.
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((s) => (
           <a
-            href={`/lavs-trading/${s.slug}`}
+            href={s.href}
             class="group flex flex-col gap-3 rounded-tl-tile rounded-br-tile border border-border-light bg-white p-6 hover:border-forest hover:bg-forest"
           >
             <div class="text-pretty text-[17px] font-semibold leading-[1.25] text-forest group-hover:text-bone">{s.title}</div>
@@ -72,17 +72,19 @@ const partners = [
           </div>
           <div class="flex flex-1 flex-col gap-[22px] p-8 lg:p-[38px]">
             <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold">01 &middot; Commercial &amp; land development</div>
-            <div class="text-pretty text-2xl font-semibold leading-[1.25] tracking-[-.02em] text-forest lg:text-[26px]">Landscaping &amp; farm development</div>
+            <div class="text-pretty text-2xl font-semibold leading-[1.25] tracking-[-.02em] text-forest lg:text-[26px]">Landscaping and farm development</div>
             <div class="text-pretty text-[15px] leading-[1.65] text-body">
-              Hands-on farm development, site preparation, and intricate hardscape landscaping &mdash; structural strength combined with aesthetic design, executed by an invested, employee-owned team.
+              Hands-on farm development, site preparation, and intricate softscape and hardscape landscaping &mdash; structural strength combined with aesthetic design, executed by an invested, employee-owned team.
             </div>
             <div class="mt-auto flex flex-col gap-px bg-border-light">
               <a href="/lavs-trading/landscaping" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
-                Hardscape landscaping <span class="text-xs text-gold">&rarr;</span>
+                Landscaping (Softscape &amp; Hardscape) <span class="text-xs text-gold">&rarr;</span>
               </a>
-              <div class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest">Commercial site development</div>
               <a href="/lavs-trading/farm-development" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
-                Farm development &amp; site preparation <span class="text-xs text-gold">&rarr;</span>
+                Farm Development &amp; Site preparation <span class="text-xs text-gold">&rarr;</span>
+              </a>
+              <a href="/lavs-trading/planting-materials-seedlings" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                Planting Materials and Seedlings <span class="text-xs text-gold">&rarr;</span>
               </a>
             </div>
           </div>
@@ -96,17 +98,11 @@ const partners = [
             <div class="text-[11.5px] font-semibold uppercase tracking-[.2em] text-gold">02 &middot; Commercial trade &amp; distribution</div>
             <div class="text-pretty text-2xl font-semibold leading-[1.25] tracking-[-.02em] text-forest lg:text-[26px]">Bulk Philippine commodities</div>
             <div class="text-pretty text-[15px] leading-[1.65] text-body">
-              Industrial-scale volumes of durable, eco-friendly materials tailored to the strict demands of large-scale commercial and environmental projects.
+              Industrial-scale volumes of durable, eco-friendly materials tailored to the strict demands of large-scale commercial and environmental projects &mdash; coco nets, charcoal briquettes, VCO oil, and raw agro-industrial materials, all in one catalog.
             </div>
             <div class="mt-auto flex flex-col gap-px bg-border-light">
-              <a href="/lavs-trading/coco-nets" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
-                Coco nets / geonets <span class="text-xs text-gold">&rarr;</span>
-              </a>
-              <a href="/lavs-trading/charcoal-briquettes" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
-                Charcoal briquettes &amp; activated carbon <span class="text-xs text-gold">&rarr;</span>
-              </a>
-              <a href="/lavs-trading/vco-oil" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
-                VCO oil <span class="text-xs text-gold">&rarr;</span>
+              <a href="/lavs-trading/bulk-agro-industrial-supplies" class="flex items-center justify-between bg-white py-[14px] text-sm font-medium text-forest hover:text-gold">
+                View all commodities <span class="text-xs text-gold">&rarr;</span>
               </a>
             </div>
           </div>
@@ -118,9 +114,9 @@ const partners = [
     <div id="who-we-help" class="band-x flex flex-col gap-12 bg-white py-16 lg:py-[88px]">
       <div class="flex flex-col gap-[14px]">
         <SectionLabel text="Who we help" color="text-muted" />
-        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Three kinds of partner</div>
+        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Four kinds of partner</div>
       </div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7">
         {partners.map((p) => (
           <div class={`flex flex-col gap-4 border-t-[3px] ${p.rule} pt-[30px]`}>
             <div class="text-pretty text-xl font-semibold leading-[1.25] text-forest">{p.title}</div>
@@ -141,7 +137,7 @@ const partners = [
           We built LAVS Trading and Development Services Inc. with a singular commitment &mdash; to elevate the agricultural landscape of the Philippines and secure market success for local producers.
         </div>
         <div class="text-pretty text-[15.5px] leading-[1.7] text-pale-sage">
-          Born from the real-world agricultural foundation of our partner enterprise, Cortijo de Palsabangon Farm OPC, where we witnessed firsthand the immense potential of local harvests, LAVS Trading evolved into a dynamic enterprise driving the distribution and trade of premier Philippine agricultural byproducts &mdash; bridging local creators with large-scale industrial buyers.
+          Born on a working farm in Quezon Province, where we witnessed firsthand the immense potential of local harvests, LAVS Trading evolved into a dynamic enterprise driving the distribution and trade of premier Philippine agricultural byproducts &mdash; bridging local creators with large-scale industrial buyers.
         </div>
       </div>
       <div class="flex flex-1 flex-col gap-7">

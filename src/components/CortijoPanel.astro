@@ -1,0 +1,81 @@
+---
+import Logo from "./Logo.astro";
+import CortijoLockup from "./CortijoLockup.astro";
+
+/**
+ * The Cortijo introduction panel — appears on Home and Sustainability,
+ * inside their standard LAVS-toned section (eyebrow/headline/caption
+ * furniture belongs to the calling page; this component is just the
+ * framed window into Cortijo's brand). See
+ * docs/design-system.md#cortijo-brand-system and the "Screen 2" section
+ * of the delta handoff for the full spec — desktop is pixel-accurate,
+ * mobile follows Mobile-Home.dc.html's stacking exactly (the one part of
+ * this delta with a real mobile design).
+ */
+interface Props {
+  image: string;
+  imageAlt?: string;
+}
+
+const { image, imageAlt = "Training session on the farm" } = Astro.props;
+
+const factRows = [
+  { label: "TESDA-certified courses", value: "Organic Agriculture Production NCII, Animal Production, Rice Production" },
+  { label: "Cooperative partnerships", value: "Extension training and demonstration plots with local farmer co-ops" },
+  { label: "The next generation", value: "Senior High immersion, OJT placements, and student researchers on the farm" },
+];
+---
+
+<div class="rounded-tl-[26px] rounded-tr-[26px] lg:rounded-tl-cortijo-card lg:rounded-tr-cortijo-card border border-cortijo-border-3 bg-cortijo-paper overflow-hidden shadow-[0_18px_44px_rgba(42,51,24,.1)]">
+  <!-- Panel header bar -->
+  <div class="flex flex-col gap-[10px] bg-cortijo-olive-ink px-[22px] py-[18px] lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-10 lg:py-5">
+    <CortijoLockup context="panel-mobile" class="lg:hidden" />
+    <CortijoLockup context="panel" class="hidden lg:flex" />
+    <div class="flex flex-none items-center gap-[9px] lg:gap-[10px]">
+      <Logo size={13} variant="cortijo" class="lg:hidden" />
+      <Logo size={15} variant="cortijo" class="hidden lg:block" />
+      <div class="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[.18em] text-cortijo-sage lg:text-[10px] lg:tracking-[.2em]">
+        Part of the LAVS group
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel body -->
+  <div class="flex flex-col gap-5 px-[22px] py-[26px] pb-[30px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-12">
+    <div class="order-2 flex flex-1 flex-col gap-[18px] lg:order-1 lg:gap-[22px]">
+      <div class="text-pretty font-cortijo-serif text-[27px] font-medium leading-[1.15] tracking-[-.012em] text-cortijo-olive-ink lg:max-w-[480px] lg:text-[36px] lg:leading-[1.14]">
+        We teach what LAVS trades.
+      </div>
+      <div class="text-pretty text-[14.5px] leading-[1.72] text-cortijo-ink lg:max-w-[480px] lg:text-[15.5px]">
+        A working 5.2-hectare farm that trains farmers rather than selling to them &mdash; an accredited learning site and TESDA assessment center.
+      </div>
+
+      <div class="flex flex-col">
+        {factRows.map((row, i) => (
+          <div
+            class={`flex flex-col gap-[6px] border-t border-cortijo-border-3 py-[15px] lg:flex-row lg:items-baseline lg:gap-5 ${i === factRows.length - 1 ? "border-b" : ""}`}
+          >
+            <div class="text-[13.5px] font-semibold text-cortijo-olive-ink lg:w-[186px] lg:flex-none">{row.label}</div>
+            <div class="text-pretty text-[13.5px] leading-[1.55] text-cortijo-muted">{row.value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-auto flex flex-col gap-3 pt-[10px]">
+        <div class="text-pretty text-[13.5px] leading-[1.6] text-cortijo-terracotta lg:max-w-[420px] lg:text-[14px]">
+          It is an open classroom, not a storefront. You are welcome to look around.
+        </div>
+        <a
+          href="/cortijo"
+          class="flex w-fit items-center gap-[10px] border-b-[1.5px] border-cortijo-terracotta pb-2 font-cortijo-serif text-[17px] font-medium text-cortijo-olive-ink hover:text-cortijo-terracotta transition-colors lg:gap-[11px] lg:text-[18px]"
+        >
+          Visit the farm school<span class="text-[16px] lg:text-[18px]">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="order-1 relative h-[200px] flex-1 overflow-hidden rounded-tl-[20px] rounded-tr-[20px] lg:order-2 lg:h-auto lg:min-h-[430px] lg:rounded-tl-cortijo-callout lg:rounded-tr-cortijo-callout">
+      <img src={image} alt={imageAlt} class="h-full w-full object-cover" loading="lazy" />
+    </div>
+  </div>
+</div>

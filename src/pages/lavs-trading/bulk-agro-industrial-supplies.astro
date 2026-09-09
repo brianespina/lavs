@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import ServiceSwitcher from "../../components/ServiceSwitcher.astro";
+import SectionLabel from "../../components/SectionLabel.astro";
+import SlimCta from "../../components/SlimCta.astro";
+
+/**
+ * Catalog page, not a service-detail page — by client direction, this
+ * replaces three separate pages (Coco Nets, Charcoal Briquettes, VCO Oil).
+ * Each product is a photo + name + one line; no per-product detail page,
+ * since every inquiry routes through the same /contact form. See
+ * docs/decisions.md. Per-product SKU/packaging specifics aren't supplied
+ * yet — see docs/open-items.md — so each card names what's confirmed on
+ * inquiry rather than inventing figures.
+ */
+const products = [
+  {
+    image: "/images/pexels-denniz-futalan-339724-29928489.jpg",
+    alt: "Coco nets erosion-control netting installed on a slope",
+    name: "Coco Nets / Geonets",
+    body: "Erosion-control geotextiles woven from Philippine coconut fibre — a nature-based alternative for slope stabilisation.",
+  },
+  {
+    image: "/images/pexels-maltelu-13037136.jpg",
+    alt: "Coconut-shell charcoal briquettes",
+    name: "Coconut Charcoal Briquettes",
+    body: "Coconut-shell charcoal and activated carbon, produced from Philippine byproducts.",
+  },
+  {
+    image: "/images/pexels-kovalskiolga-8647221.jpg",
+    alt: "Virgin coconut oil",
+    name: "VCO Oil",
+    body: "Virgin coconut oil sourced through our producer network for commercial, industrial, and export buyers.",
+  },
+  {
+    image: "/images/pexels-gildasio-mota-2148932169-36063662.jpg",
+    alt: "Raw coconut and agro-industrial byproduct material",
+    name: "Raw Agro-Industrial Materials",
+    body: "Coconut shell, husk, and other primary Philippine agricultural byproducts, supplied in bulk for further processing.",
+  },
+];
+---
+
+<BaseLayout title="Philippine Bulk Agro-Industrial Supplies">
+  <div class="overflow-hidden bg-white">
+    <SiteNav active="lavs" />
+
+    <Hero
+      image="/images/pexels-gildasio-mota-2148932169-36063662.jpg"
+      imageAlt="Philippine agro-industrial byproducts ready for bulk supply"
+      breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Bulk Agro-Industrial Supplies" }}
+      title="Philippine bulk agro-industrial supplies"
+      lead="Durable, eco-friendly Philippine agricultural byproducts — coco nets, charcoal briquettes, VCO oil, and raw agro-industrial materials — supplied at industrial volume to commercial and global markets."
+    />
+
+    <ServiceSwitcher active="bulk-agro-industrial-supplies" />
+
+    <!-- Product catalog -->
+    <div class="band-x flex flex-col gap-10 bg-white py-14 lg:gap-12 lg:py-20">
+      <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="flex flex-col gap-[14px]">
+          <SectionLabel text="What we supply" color="text-muted" />
+          <div class="text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[34px]">Bulk commodities, one inquiry</div>
+        </div>
+        <div class="max-w-[380px] text-pretty text-[14.5px] leading-[1.6] text-muted">
+          Product name, grade, packaging, and volume are confirmed against your requirement — send an inquiry and we'll come back with specifics.
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((p) => (
+          <a
+            href="/contact"
+            class="group flex flex-col overflow-hidden rounded-tl-panel-lg rounded-br-panel-lg border border-border-light bg-white hover:border-forest"
+          >
+            <div class="relative h-[170px] overflow-hidden rounded-tl-panel rounded-br-panel">
+              <img src={p.image} alt={p.alt} class="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div class="flex flex-1 flex-col gap-[10px] p-6">
+              <div class="text-pretty text-lg font-semibold leading-[1.25] text-forest">{p.name}</div>
+              <div class="text-pretty text-[13.5px] leading-[1.55] text-body">{p.body}</div>
+              <div class="mt-auto pt-2 text-[11px] font-semibold uppercase tracking-[.14em] text-gold group-hover:text-gold-light">Inquire &rarr;</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <SlimCta
+      question="Need Philippine bulk commodities at volume?"
+      subline="Tell us the product, grade, and volume you need."
+      ctaLabel="Inquire about commercial supply"
+      ctaHref="/contact"
+    />
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

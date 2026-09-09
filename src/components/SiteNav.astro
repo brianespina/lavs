@@ -2,9 +2,11 @@
 import Logo from "./Logo.astro";
 
 /**
- * Shared site nav — two rows (utility bar + main bar) plus dropdowns for
- * the two enterprise sections. Built once, reused on every page via the
- * `active` prop (see /docs/design-system.md#sitenav).
+ * Shared site nav — two rows (utility bar + main bar) plus the LAVS
+ * Trading & Development dropdown. Built once, reused on every page via the
+ * `active` prop (see /docs/design-system.md#sitenav). Cortijo de
+ * Palsabangon is not a nav destination — it's reached from inside LAVS
+ * pages via CortijoPanel.astro (see docs/decisions.md).
  *
  * Dropdown behavior: open on mouseenter of the trigger, close 260ms after
  * mouseleave (see the inline script below) so diagonal cursor travel into
@@ -18,7 +20,7 @@ import Logo from "./Logo.astro";
  * site-wide, since it's a shared component used on every page.
  */
 interface Props {
-  active?: "home" | "lavs" | "cortijo" | "sustainability" | "news" | "contact";
+  active?: "home" | "lavs" | "sustainability" | "news" | "contact";
 }
 
 const { active = "home" } = Astro.props;
@@ -39,11 +41,7 @@ const underline =
   <!-- Utility bar — desktop -->
   <div class="band-x hidden h-[42px] items-center justify-between bg-forest-deep lg:flex">
     <div class="flex items-center gap-5 text-[11px] font-medium uppercase tracking-[.14em] text-sage">
-      <div class="whitespace-nowrap">DA-ATI Accredited Learning Site</div>
-      <div class="h-[11px] w-px bg-sage/40"></div>
-      <div class="whitespace-nowrap">TESDA Registered Farm School</div>
-      <div class="h-[11px] w-px bg-sage/40"></div>
-      <div class="whitespace-nowrap">DTI &middot; SEC Registered</div>
+      <div class="whitespace-nowrap">SEC-Registered Corporation</div>
     </div>
     <div class="flex items-center gap-[22px] text-xs text-mint">
       <div class="whitespace-nowrap">0917 143 1060 &middot; 0915 009 0383</div>
@@ -55,7 +53,7 @@ const underline =
   <!-- Utility bar — mobile -->
   <div class="flex h-8 items-center justify-center bg-forest-deep px-5 lg:hidden">
     <div class="whitespace-nowrap text-[9.5px] font-medium uppercase tracking-[.14em] text-sage">
-      TESDA &middot; DA-ATI &middot; DTI &middot; SEC accredited
+      SEC-Registered Corporation
     </div>
   </div>
 
@@ -95,29 +93,10 @@ const underline =
           <div class="px-6 pb-[6px] pt-2 text-[9.5px] font-semibold uppercase tracking-[.18em] text-muted-2">Services</div>
           <a href="/lavs-trading/landscaping" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Landscaping</a>
           <a href="/lavs-trading/farm-development" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Farm Development</a>
-          <a href="/lavs-trading/coco-nets" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Coco Nets / Geonets</a>
-          <a href="/lavs-trading/charcoal-briquettes" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Charcoal Briquettes</a>
-          <a href="/lavs-trading/vco-oil" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">VCO Oil</a>
+          <a href="/lavs-trading/planting-materials-seedlings" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Planting Materials &amp; Seedlings</a>
+          <a href="/lavs-trading/bulk-agro-industrial-supplies" class="block whitespace-nowrap px-6 py-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Bulk Agro-Industrial Supplies</a>
           <div class="mx-6 my-2 h-px bg-border-light-3"></div>
           <a href="/lavs-trading#who-we-help" class="block whitespace-nowrap px-6 pb-[13px] pt-[11px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Who We Help</a>
-        </div>
-      </div>
-
-      <div class="group relative" data-dropdown="cortijo">
-        <div class={`${navLink} cursor-pointer gap-[6px]`}>
-          Cortijo de Palsabangon Farm
-          <svg width="8" height="5" viewBox="0 0 8 5" fill="none" aria-hidden="true">
-            <path d="M1 1L4 4L7 1" class="stroke-sage" stroke-width="1.4"></path>
-          </svg>
-        </div>
-        {(active === "cortijo") && <div class={`${underline} right-[14px]`}></div>}
-        <div
-          data-dropdown-panel="cortijo"
-          class="pointer-events-none absolute -left-5 top-full w-[286px] rounded-br-tile border-t-[3px] border-gold bg-bone py-[10px] opacity-0 shadow-[0_18px_40px_rgba(14,42,27,.22)] transition-opacity duration-150"
-        >
-          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Agricultural Solutions &amp; Distribution</a>
-          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Agricultural Education &amp; Training</a>
-          <a href="/cortijo" class="block whitespace-nowrap px-6 py-[13px] text-[13px] font-medium text-forest hover:bg-bone-deep hover:text-forest-mid">Credentials &amp; Accreditations</a>
         </div>
       </div>
 
@@ -169,28 +148,9 @@ const underline =
         <a href="/lavs-trading" class="py-3 text-sm font-semibold text-bone">Overview</a>
         <a href="/lavs-trading/landscaping" class="py-3 text-sm text-mint">Landscaping</a>
         <a href="/lavs-trading/farm-development" class="py-3 text-sm text-mint">Farm Development</a>
-        <a href="/lavs-trading/coco-nets" class="py-3 text-sm text-mint">Coco Nets / Geonets</a>
-        <a href="/lavs-trading/charcoal-briquettes" class="py-3 text-sm text-mint">Charcoal Briquettes</a>
-        <a href="/lavs-trading/vco-oil" class="py-3 text-sm text-mint">VCO Oil</a>
+        <a href="/lavs-trading/planting-materials-seedlings" class="py-3 text-sm text-mint">Planting Materials &amp; Seedlings</a>
+        <a href="/lavs-trading/bulk-agro-industrial-supplies" class="py-3 text-sm text-mint">Bulk Agro-Industrial Supplies</a>
         <a href="/lavs-trading#who-we-help" class="py-3 text-sm text-mint">Who We Help</a>
-      </div>
-    </div>
-    <div class="border-b border-mint/20">
-      <button
-        type="button"
-        data-submenu-toggle
-        aria-expanded="false"
-        class={`flex min-h-11 w-full items-center justify-between gap-3 py-4 text-left text-[15px] ${active === "cortijo" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}
-      >
-        Cortijo de Palsabangon Farm
-        <svg width="10" height="6" viewBox="0 0 8 5" fill="none" aria-hidden="true" class="shrink-0 transition-transform">
-          <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4"></path>
-        </svg>
-      </button>
-      <div data-submenu class="hidden flex-col gap-1 pb-4 pl-4">
-        <a href="/cortijo" class="py-3 text-sm text-mint">Agricultural Solutions &amp; Distribution</a>
-        <a href="/cortijo" class="py-3 text-sm text-mint">Agricultural Education &amp; Training</a>
-        <a href="/cortijo" class="py-3 text-sm text-mint">Credentials &amp; Accreditations</a>
       </div>
     </div>
     <a href="/sustainability" class={`border-b border-mint/20 py-4 text-[15px] ${active === "sustainability" ? "font-semibold text-gold-light" : "font-medium text-bone"}`}>Sustainability &amp; Community</a>

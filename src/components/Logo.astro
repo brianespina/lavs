@@ -6,16 +6,22 @@
  */
 interface Props {
   size?: number;
-  variant?: "dark" | "light";
+  /** "cortijo" renders the mark in Cortijo's palette for its group-attribution
+   * role on Cortijo surfaces — see docs/design-system.md#cortijo-brand-system.
+   * It is still the LAVS Plot Grid mark, just recolored. */
+  variant?: "dark" | "light" | "cortijo";
   class?: string;
 }
 
 const { size = 46, variant = "dark", class: className } = Astro.props;
 
-const fills =
-  variant === "dark"
-    ? { a: "fill-bone", b: "fill-sage", c: "fill-bone", d: "fill-gold-light" }
-    : { a: "fill-forest", b: "fill-olive", c: "fill-forest", d: "fill-gold" };
+const fillsByVariant = {
+  dark: { a: "fill-bone", b: "fill-sage", c: "fill-bone", d: "fill-gold-light" },
+  light: { a: "fill-forest", b: "fill-olive", c: "fill-forest", d: "fill-gold" },
+  cortijo: { a: "fill-cortijo-bone", b: "fill-cortijo-sage", c: "fill-cortijo-bone", d: "fill-cortijo-clay" },
+} as const;
+
+const fills = fillsByVariant[variant];
 ---
 
 <svg

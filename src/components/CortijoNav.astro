@@ -1,0 +1,55 @@
+---
+import Logo from "./Logo.astro";
+import CortijoLockup from "./CortijoLockup.astro";
+
+/**
+ * Page-local nav for /cortijo. Cortijo does not share SiteNav — see
+ * docs/design-system.md#cortijo-brand-system. The page is a single scroll;
+ * every link below is a same-page anchor except Enroll.
+ */
+interface Props {
+  showLavsStrip?: boolean;
+}
+
+const { showLavsStrip = true } = Astro.props;
+
+const navLink = "text-[12.5px] font-medium text-cortijo-ink whitespace-nowrap hover:text-cortijo-terracotta transition-colors";
+---
+
+{showLavsStrip && (
+  <div class="band-x flex h-11 items-center justify-between bg-cortijo-olive-ink-deep">
+    <div class="hidden items-center gap-[18px] text-[11px] font-medium uppercase tracking-[.14em] text-cortijo-sage lg:flex">
+      <div class="whitespace-nowrap">Est. 2012 &middot; Quezon Province</div>
+      <div class="h-[11px] w-px bg-cortijo-sage/40"></div>
+      <div class="whitespace-nowrap">DA-ATI Accredited Learning Site</div>
+      <div class="h-[11px] w-px bg-cortijo-sage/40"></div>
+      <div class="whitespace-nowrap">TESDA Registered Farm School</div>
+    </div>
+    <a
+      href="/"
+      class="flex items-center gap-[10px] text-[11px] font-semibold uppercase tracking-[.14em] text-cortijo-bone whitespace-nowrap hover:text-cortijo-clay transition-colors"
+    >
+      <Logo size={15} variant="cortijo" />
+      Sister company of LAVS Trading &rarr;
+    </a>
+  </div>
+)}
+
+<div class="band-x flex h-[92px] items-center justify-between border-b border-cortijo-border bg-cortijo-paper">
+  <a href="#top" class="flex-none">
+    <CortijoLockup context="nav" />
+  </a>
+
+  <div class="flex items-center gap-[34px]">
+    <a href="#programs" class={navLink}>What We Teach</a>
+    <a href="#farm" class={navLink}>The Farm</a>
+    <a href="#credentials" class={navLink}>Credentials</a>
+    <a href="#who" class={navLink}>Who We Help</a>
+    <a
+      href="/contact"
+      class="whitespace-nowrap rounded-tl-cortijo-nav rounded-tr-cortijo-nav bg-cortijo-terracotta px-[22px] py-[13px] text-[11px] font-semibold uppercase tracking-[.1em] text-cortijo-paper-white hover:bg-cortijo-terracotta-light transition-colors"
+    >
+      Enroll
+    </a>
+  </div>
+</div>

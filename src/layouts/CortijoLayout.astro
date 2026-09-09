@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+
+/**
+ * Layout for the /cortijo route only. Cortijo does not share BaseLayout's
+ * SiteNav/SiteFooter or its LAVS-toned defaults — it's a separate brand
+ * surface within the same site (see docs/design-system.md#cortijo-brand-system
+ * and docs/decisions.md). Pages set their own background/link colors via
+ * Tailwind classes on the page wrapper rather than relying on global body
+ * styles, same pattern every other page already uses.
+ */
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Cortijo de Palsabangon Farm OPC — a DA-ATI Accredited Learning Site and TESDA Registered Farm School and Assessment Center in Quezon Province, and the training arm of the LAVS group.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} · Cortijo de Palsabangon Farm OPC</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Bitter:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -14,6 +14,7 @@
   --color-forest-mid: #2c6141;
   --color-forest-card: #1b4730;
   --color-forest-card-border: #2f6244;
+  --color-forest-card-hover: #22563a;
   --color-olive: #6e8b3d;
   --color-sage: #8fae5c;
   --color-pale-sage: #b9c7a8;
@@ -31,6 +32,7 @@
   --color-body: #4a5257;
   --color-muted: #767e82;
   --color-muted-2: #a29a88;
+  --color-muted-3: #5f6669; /* Cortijo-panel caption text on LAVS pages (Home, Sustainability) */
   --color-placeholder: #a9a395;
 
   /* Warm text-on-sand shades — not in the named handoff palette table, but
@@ -54,6 +56,49 @@
   --radius-panel: 28px; /* media cards / dark panels / photo frames (small end) */
   --radius-card: 32px; /* pathway cards */
   --radius-panel-lg: 36px; /* media cards / news cards (large end) */
+
+  /*
+    Cortijo de Palsabangon brand system — a genuinely separate token set
+    from the LAVS tokens above. Never mix them: a Cortijo surface uses
+    Cortijo tokens end-to-end, and no color or radius value is shared
+    between the two sets even where the hex happens to coincide. See
+    docs/design-system.md#cortijo-brand-system.
+  */
+  --font-cortijo-serif: "Bitter", ui-serif, Georgia, serif;
+
+  --color-cortijo-olive-ink: #2a3318; /* primary: headings, dark bands, primary button fill, footer lockup */
+  --color-cortijo-olive-ink-deep: #1e2611; /* top utility strip, enrollment band base, dark-button hover */
+  --color-cortijo-terracotta: #9b4e22; /* accent: enroll buttons, badges, eyebrow accents, link hover, card top rules */
+  --color-cortijo-terracotta-light: #b5622f; /* terracotta button hover */
+  --color-cortijo-clay: #d98b54; /* accent on dark: stat numerals, arrow links on olive ink, logo quadrant */
+  --color-cortijo-olive: #6e8b3d; /* secondary accent, body-link color, arrow links, card top rules */
+  --color-cortijo-sage: #a3b573; /* eyebrows and labels on dark, logo quadrant */
+  --color-cortijo-sage-pale: #cfd9b4; /* body text on dark */
+  --color-cortijo-sage-muted: #b8be96; /* secondary body text on dark */
+  --color-cortijo-paper: #f4efe2; /* primary light section background, page surround */
+  --color-cortijo-paper-warm: #e9e1cd; /* alternate light band background, body background */
+  --color-cortijo-paper-white: #fbf8f0; /* card surfaces, text on olive ink / terracotta */
+  --color-cortijo-bone: #ede6d4; /* text on olive ink, logo quadrant */
+  --color-cortijo-border: #d8cfb8; /* hairlines and grid dividers on light */
+  --color-cortijo-border-2: #c4bca3; /* outline-button borders, badge borders */
+  --color-cortijo-border-3: #d0c6ac; /* panel border and fact-row rules in the introduction panel */
+  --color-cortijo-ink: #4a4636; /* body text on light */
+  --color-cortijo-muted: #6b6350; /* eyebrows, captions, descriptors on light */
+
+  /*
+    Cortijo corner system — "Arch". Rounds both top corners only, applied
+    as a pair (`rounded-tl-cortijo-panel rounded-tr-cortijo-panel`).
+    Bottom corners always square. Mirrors the LAVS diagonal-pair scale in
+    spirit, not in value.
+  */
+  --radius-cortijo-badge: 8px; /* accreditation badges */
+  --radius-cortijo-nav: 12px; /* nav "Enroll" button */
+  --radius-cortijo-control: 14px; /* buttons / CTAs (small end) */
+  --radius-cortijo-control-lg: 16px; /* buttons / CTAs (large end) */
+  --radius-cortijo-tile: 20px; /* LAVS group-attribution tile (Cortijo footer) */
+  --radius-cortijo-callout: 24px; /* callout cards, nested photo in the intro panel */
+  --radius-cortijo-panel: 28px; /* story photo, program cards, who-we-help cards */
+  --radius-cortijo-card: 32px; /* farm/story photo, intro panel outer frame */
 }
 
 @layer base {

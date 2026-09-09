@@ -1,31 +1,42 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteNav from "../components/SiteNav.astro";
-import SiteFooter from "../components/SiteFooter.astro";
-import Hero from "../components/Hero.astro";
-import SectionLabel from "../components/SectionLabel.astro";
-import SlimCta from "../components/SlimCta.astro";
+import CortijoLayout from "../layouts/CortijoLayout.astro";
+import CortijoNav from "../components/CortijoNav.astro";
+import CortijoFooter from "../components/CortijoFooter.astro";
 
-const offers = [
+/**
+ * Cortijo de Palsabangon Farm OPC — the school's own home, reached from
+ * LAVS pages via the introduction panel (CortijoPanel.astro), never a
+ * top-level nav destination. Single scroll, page-local nav/footer, its
+ * own token set. See docs/design-system.md#cortijo-brand-system and
+ * docs/decisions.md.
+ */
+
+const programs = [
   {
     image: "/images/pexels-roman-odintsov-12719333.jpg",
     alt: "TESDA class in session",
+    accent: "border-cortijo-olive",
+    eyebrow: "National certification",
     title: "TESDA training programs",
     body: "Organic Agriculture Production NCII, Animal Production, and Modernized High-Quality Inbred Rice Production using advanced machinery.",
     cta: "View programs →",
   },
   {
-    image: "/images/pexels-alfomedeiros-11573787.jpg",
-    alt: "Nursery, seedlings and agricultural inputs",
-    title: "Agricultural inputs, seedlings & nurseries",
-    body: "Farm produce, inputs, and nursery stock from a working 5.2-hectare farm, supplied to growers and cooperatives.",
-    cta: "See what's available →",
+    image: "/images/pexels-nc-farm-bureau-mark-6791938.jpg",
+    alt: "Farmer cooperative training session",
+    accent: "border-cortijo-sage",
+    eyebrow: "Out in the field",
+    title: "Farmer cooperative partnerships",
+    body: "Field programs run with local cooperatives — extension training, demonstration plots, and shared learning on a working farm.",
+    cta: "Partner with us →",
   },
   {
     image: "/images/pexels-armandoh2-18749480.jpg",
-    alt: "Assessment and certification session",
+    alt: "Assessment or certification session",
+    accent: "border-cortijo-terracotta",
+    eyebrow: "Short-form",
     title: "Micro-credential training",
-    body: "Short-form technical credentials and national certification across multiple qualifications, assessed on site.",
+    body: "Short technical credentials and national certification across multiple qualifications, assessed here on site.",
     cta: "Enroll now →",
   },
 ];
@@ -39,160 +50,236 @@ const stats = [
 const credentials = [
   {
     badge: "DA-ATI",
-    since: "Since 2015",
+    qualifier: "Since 2015",
     title: "Accredited Learning Site & Coconut LSA",
     body: "An official Learning Site in Agriculture since 2015, and a specialized Coconut Learning Site since 2025.",
   },
   {
     badge: "TESDA",
-    since: "Farm school",
+    qualifier: "Farm school",
     title: "Accredited Farm School",
     body: "Teaching critical agricultural competencies — Organic Agriculture Production NCII, Animal Production (hogs, poultry, small ruminants), and Modernized High-Quality Inbred Rice Production.",
   },
   {
     badge: "TESDA",
-    since: "Assessment center",
+    qualifier: "Assessment center",
     title: "Accredited Assessment Center",
     body: "Officially authorized to conduct national certifications across OAP NCII, AGE NCII/NCIII, ACP NCII, and LIM NCII.",
   },
   {
     badge: "DepEd",
-    since: "JDVP partner",
+    qualifier: "JDVP partner",
     title: "Joint Delivery Partner School",
     body: "An official Joint Delivery Voucher Program partner institution and Senior High School immersion partner farm, providing specialized tech-voc training.",
   },
 ];
 
 const callouts = [
-  { border: "border-gold", title: "Award-winning leadership", body: "Honored by regional agricultural bodies and recognized for championship-level Rural Improvement Club community leadership." },
-  { border: "border-olive", title: "Academic immersion & OJT partner", body: "A trusted institutional training ground, welcoming OJT students, interns, and student researchers from colleges, high schools, and universities across the Philippines." },
+  { border: "border-cortijo-terracotta", title: "Award-winning leadership", body: "Honored by regional agricultural bodies and recognized for championship-level Rural Improvement Club community leadership." },
+  { border: "border-cortijo-olive", title: "Academic immersion & OJT partner", body: "A trusted institutional training ground, welcoming OJT students, interns, and student researchers from colleges, high schools, and universities across the Philippines." },
 ];
 
 const whoHelp = [
-  { title: "For agricultural producers & cooperatives", body: "We bridge the gap between dedicated local producers and the broader market. By taking on the burden of marketing and distribution, we ensure that high-quality Philippine agricultural goods reach the right buyers at fair prices — turning hard work into sustainable success." },
-  { title: "For aspiring farmers & students", body: "Through Cortijo de Palsabangon Farm OPC and our community agriculture courses, we empower individuals with practical, hands-on knowledge, technical training, and certified skills to build sustainable farming careers." },
+  { title: "For farmer cooperatives", body: "We work alongside local cooperatives to raise technical standards across their membership — extension training on the farm, assessment on site, and national certification that travels with each farmer for the rest of their career." },
+  { title: "For aspiring farmers & students", body: "Through our community agriculture courses we equip individuals with practical, hands-on knowledge, technical training, and certified skills to build sustainable farming careers." },
 ];
+
+// Content flags — default true, kept as simple booleans (no CMS-driven
+// toggling exists elsewhere on the site, so this matches the pattern used
+// by every other optional-section page).
+const showLavsStrip = true;
+const showCredentials = true;
+const showWhoWeHelp = true;
+
+const eyebrowRule = "flex items-center gap-3";
 ---
 
-<BaseLayout title="Cortijo de Palsabangon Farm">
-  <div class="overflow-hidden bg-white">
-    <SiteNav active="cortijo" />
+<CortijoLayout title="Cortijo de Palsabangon Farm">
+  <div id="top" class="min-w-0 overflow-hidden bg-cortijo-paper">
+    <CortijoNav showLavsStrip={showLavsStrip} />
 
-    <Hero
-      image="/images/pexels-azinuddin-bin-abas-76503503-15717701.jpg"
-      imageAlt="Farm landscape and training session at Cortijo de Palsabangon"
-      eyebrow="Cortijo de Palsabangon Farm OPC · Est. 2012"
-      title="Agricultural education, training & community leadership"
-      lead="A DA-ATI Accredited Learning Site and TESDA Registered Farm School and Assessment Center, equipping farmers, students, and agricultural partners with national-standard competencies."
-    />
-
-    <!-- What we offer -->
-    <div class="band-x flex flex-col gap-11 bg-bone py-14 lg:py-20">
-      <div class="flex flex-col gap-[14px]">
-        <SectionLabel text="What we offer" color="text-muted" />
-        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Training, inputs, and produce</div>
+    <!-- Hero -->
+    <div class="flex flex-col lg:min-h-[520px] lg:flex-row lg:items-stretch">
+      <div class="flex flex-col gap-[26px] bg-cortijo-paper px-5 py-12 lg:w-[46%] lg:flex-none lg:justify-center lg:py-[76px] lg:pl-[max(48px,calc((100%_-_1440px)/2_+_48px))] lg:pr-16">
+        <div class={`${eyebrowRule} text-cortijo-olive`}>
+          <div class="h-[1.5px] w-[26px] bg-cortijo-olive"></div>
+          <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">An open classroom since 2012</div>
+        </div>
+        <div class="text-pretty font-cortijo-serif text-[38px] font-medium leading-[1.08] tracking-[-.015em] text-cortijo-olive-ink lg:max-w-[520px] lg:text-[52px] lg:leading-[1.05]">
+          The most valuable crop is knowledge.
+        </div>
+        <div class="text-pretty text-[15px] leading-[1.65] text-cortijo-ink lg:max-w-[480px] lg:text-[16.5px] lg:leading-[1.7]">
+          A DA-ATI Accredited Learning Site and TESDA Registered Farm School and Assessment Center, equipping farmers, students, and cooperatives with national-standard competencies &mdash; on a working 5.2-hectare farm in Quezon Province.
+        </div>
+        <div class="flex flex-col gap-3 pt-[10px] sm:flex-row sm:gap-4">
+          <a href="/contact" class="rounded-tl-cortijo-control rounded-tr-cortijo-control bg-cortijo-olive-ink px-[26px] py-[17px] text-center text-xs font-semibold uppercase tracking-[.1em] text-cortijo-paper hover:bg-cortijo-terracotta hover:text-cortijo-paper-white transition-colors">
+            Enroll in Agriculture Courses
+          </a>
+          <a href="#programs" class="rounded-tl-cortijo-control rounded-tr-cortijo-control border-[1.5px] border-cortijo-border-2 px-[26px] py-[15.5px] text-center text-xs font-semibold uppercase tracking-[.1em] text-cortijo-ink hover:border-cortijo-olive-ink hover:text-cortijo-olive-ink transition-colors">
+            See the programs
+          </a>
+        </div>
       </div>
-      <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-        {offers.map((o) => (
-          <div class="flex flex-col overflow-hidden rounded-tl-panel-lg rounded-br-panel-lg bg-white">
-            <div class="relative h-[180px] overflow-hidden rounded-tl-panel rounded-br-panel lg:h-[210px]">
-              <img src={o.image} alt={o.alt} class="h-full w-full object-cover" loading="lazy" />
+      <div class="relative h-[280px] bg-cortijo-olive-ink lg:h-auto lg:flex-1">
+        <img src="/images/pexels-azinuddin-bin-abas-76503503-15717701.jpg" alt="Farm landscape and training session at Cortijo de Palsabangon" class="h-full w-full object-cover" loading="eager" />
+        <div class="absolute inset-0 bg-cortijo-olive-ink opacity-[.14] pointer-events-none"></div>
+      </div>
+    </div>
+
+    <!-- What we teach -->
+    <div id="programs" class="band-x flex flex-col gap-8 bg-cortijo-paper-warm py-14 lg:gap-11 lg:py-[88px]">
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
+        <div class="flex flex-col gap-4">
+          <div class={`${eyebrowRule} text-cortijo-muted`}>
+            <div class="h-[1.5px] w-[26px] bg-cortijo-muted"></div>
+            <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">What we teach</div>
+          </div>
+          <div class="text-pretty font-cortijo-serif text-[28px] font-medium leading-[1.16] tracking-[-.01em] text-cortijo-olive-ink lg:text-[40px] lg:leading-[1.1]">
+            Training, assessment, and credentials
+          </div>
+        </div>
+        <div class="text-pretty text-[14.5px] leading-[1.65] text-cortijo-muted lg:max-w-[360px]">
+          Every program ends in something a farmer can carry: a national certificate, a credential, a skill proven in the field.
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-[26px]">
+        {programs.map((p) => (
+          <div class="flex flex-col overflow-hidden rounded-tl-cortijo-panel rounded-tr-cortijo-panel bg-cortijo-paper-white">
+            <div class="relative h-[180px] overflow-hidden lg:h-[220px]">
+              <img src={p.image} alt={p.alt} class="h-full w-full object-cover" loading="lazy" />
             </div>
-            <div class="flex flex-1 flex-col gap-4 p-7 lg:p-8">
-              <div class="text-xl font-semibold leading-[1.25] text-forest">{o.title}</div>
-              <div class="text-pretty text-[14.5px] leading-[1.65] text-body">{o.body}</div>
-              <div class="mt-auto pt-1 text-xs font-semibold uppercase tracking-[.1em] text-olive">{o.cta}</div>
+            <div class={`flex flex-1 flex-col gap-4 border-t-[3px] p-7 ${p.accent} lg:gap-[16px] lg:p-[34px]`}>
+              <div class="text-[11px] font-semibold uppercase tracking-[.2em] text-cortijo-terracotta">{p.eyebrow}</div>
+              <div class="font-cortijo-serif text-xl font-medium leading-[1.2] text-cortijo-olive-ink lg:text-[24px]">{p.title}</div>
+              <div class="text-pretty text-[14.5px] leading-[1.7] text-cortijo-ink">{p.body}</div>
+              <div class="mt-auto pt-2 text-[11.5px] font-semibold uppercase tracking-[.14em] text-cortijo-olive">{p.cta}</div>
             </div>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Who we are -->
-    <div class="band-x flex flex-col gap-10 bg-white py-16 lg:flex-row lg:gap-16 lg:py-[88px]">
-      <div class="flex flex-1 flex-col gap-6">
-        <SectionLabel text="Who we are" color="text-muted" />
-        <div class="text-pretty text-[28px] font-semibold leading-[1.18] tracking-[-.025em] text-forest lg:text-[36px]">
-          The most valuable crop we can cultivate is knowledge.
+    <!-- The farm / who we are -->
+    <div id="farm" class="band-x flex flex-col gap-10 bg-cortijo-olive-ink py-16 lg:flex-row lg:items-center lg:gap-[72px] lg:py-24">
+      <div class="flex flex-[1.15] flex-col gap-6 lg:gap-[30px]">
+        <div class={`${eyebrowRule} text-cortijo-sage`}>
+          <div class="h-[1.5px] w-[26px] bg-cortijo-sage"></div>
+          <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">The farm &middot; who we are</div>
         </div>
-        <div class="text-pretty text-[15.5px] leading-[1.7] text-body">
-          Cortijo de Palsabangon Farm has been rooted in the belief that sharing knowledge is the most powerful catalyst for uplifting our community. Established in 2012, our 5.2-hectare farm has served as an open classroom for Quezon Province and beyond.
+        <div class="text-pretty font-cortijo-serif text-[26px] font-normal italic leading-[1.3] tracking-[-.005em] text-cortijo-bone lg:text-[34px] lg:leading-[1.28]">
+          &ldquo;Sharing knowledge is the most powerful catalyst for uplifting our community.&rdquo;
         </div>
-        <div class="text-pretty text-[15.5px] leading-[1.7] text-body">
-          Whether we are teaching modern organic methods to veteran farmers or giving students their very first taste of hands-on agriculture, our mission is simple: to build a future where Filipino farmers stand proud, skilled, and deeply equipped to feed the nation.
+        <div class="text-pretty text-[15px] leading-[1.7] text-cortijo-sage-pale lg:max-w-[600px] lg:text-[15.5px] lg:leading-[1.75]">
+          Cortijo de Palsabangon Farm &mdash; the agricultural education arm alongside LAVS Trading &amp; Development Services Inc. &mdash; was established in 2012. Our 5.2-hectare farm has served as an open classroom for Quezon Province and beyond.
         </div>
-        <div class="flex gap-9 pt-3">
-          {stats.map((s) => (
-            <div class="flex flex-col gap-[5px]">
-              <div class="text-[32px] font-bold leading-none tracking-[-.02em] text-olive lg:text-[38px]">{s.value}</div>
-              <div class="text-xs font-medium uppercase tracking-[.14em] text-muted">{s.label}</div>
+        <div class="text-pretty text-[15px] leading-[1.7] text-cortijo-sage-muted lg:max-w-[600px] lg:text-[15.5px] lg:leading-[1.75]">
+          Whether we are teaching modern organic methods to veteran farmers or giving students their first taste of hands-on agriculture, the mission is simple: a future where Filipino farmers stand proud, skilled, and deeply equipped to feed the nation.
+        </div>
+        <div class="flex w-fit gap-[2px] bg-cortijo-sage/30 mt-2">
+          {stats.map((s, i) => (
+            <div class={`flex flex-col gap-[7px] bg-cortijo-olive-ink py-[26px] pr-6 lg:pr-10 lg:py-[26px] ${i === 0 ? "pl-0" : "pl-6 lg:pl-10"}`}>
+              <div class="font-cortijo-serif text-[30px] font-medium leading-none text-cortijo-clay lg:text-[37px]">{s.value}</div>
+              <div class="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[.16em] text-cortijo-sage">{s.label}</div>
             </div>
           ))}
         </div>
       </div>
-      <div class="relative min-h-[280px] flex-1 overflow-hidden rounded-tl-panel rounded-br-panel lg:min-h-[440px]">
+      <div class="relative min-h-[260px] flex-1 overflow-hidden rounded-tl-cortijo-card rounded-tr-cortijo-card lg:min-h-[520px]">
         <img src="/images/pexels-nc-farm-bureau-mark-8658558.jpg" alt="Farm open classroom" class="h-full w-full object-cover" loading="lazy" />
       </div>
     </div>
 
     <!-- Credentials & accreditations -->
-    <div class="band-x flex flex-col gap-10 bg-forest py-16 lg:gap-12 lg:py-[88px]">
-      <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div class="flex flex-col gap-[14px]">
-          <SectionLabel text="Credentials & accreditations" color="text-sage" />
-          <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-bone lg:text-[40px]">Recognized, authorized, accredited</div>
-        </div>
-        <div class="max-w-[400px] text-pretty text-[15px] leading-[1.65] text-pale-sage">
-          TESDA micro-credentials, technical training, and industry licenses &mdash; verified with national bodies.
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 gap-[2px] bg-bone/[.16] sm:grid-cols-2">
-        {credentials.map((c) => (
-          <div class="flex flex-col gap-[14px] bg-forest p-7 lg:p-[34px]">
-            <div class="flex items-center gap-3">
-              <div class="bg-gold-light px-[10px] py-[6px] text-[10px] font-bold uppercase tracking-[.14em] text-ink">{c.badge}</div>
-              <div class="text-[11px] uppercase tracking-[.14em] text-sage">{c.since}</div>
+    {showCredentials && (
+      <div id="credentials" class="band-x flex flex-col gap-10 bg-cortijo-paper py-16 lg:gap-12 lg:py-[92px]">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
+          <div class="flex flex-col gap-4">
+            <div class={`${eyebrowRule} text-cortijo-muted`}>
+              <div class="h-[1.5px] w-[26px] bg-cortijo-muted"></div>
+              <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">Credentials &amp; accreditations</div>
             </div>
-            <div class="text-xl font-semibold leading-[1.3] text-bone">{c.title}</div>
-            <div class="text-pretty text-[14.5px] leading-[1.65] text-mint">{c.body}</div>
+            <div class="font-cortijo-serif text-[28px] font-medium leading-[1.16] tracking-[-.01em] text-cortijo-olive-ink lg:text-[40px] lg:leading-[1.1]">
+              Recognized, authorized, accredited
+            </div>
           </div>
-        ))}
-      </div>
+          <div class="text-pretty text-[14.5px] leading-[1.65] text-cortijo-muted lg:max-w-[360px]">
+            TESDA micro-credentials, technical training, and industry licenses &mdash; verified with national bodies.
+          </div>
+        </div>
 
-      <div class="grid grid-cols-1 gap-8 pt-2 sm:grid-cols-2">
-        {callouts.map((c) => (
-          <div class={`flex flex-col gap-3 border-l-[3px] ${c.border} pl-6`}>
-            <div class="text-lg font-semibold text-bone">{c.title}</div>
-            <div class="text-pretty text-[14.5px] leading-[1.65] text-pale-sage">{c.body}</div>
-          </div>
-        ))}
+        <div class="grid grid-cols-1 gap-[2px] bg-cortijo-border sm:grid-cols-2">
+          {credentials.map((c, i) => (
+            <div class={`flex flex-col gap-[15px] bg-cortijo-paper p-7 lg:p-[38px] ${i % 2 === 0 ? "lg:pl-0" : ""}`}>
+              <div class="flex items-center gap-3">
+                <div class="rounded-tl-cortijo-badge rounded-tr-cortijo-badge bg-cortijo-terracotta px-[11px] py-[6px] text-[10px] font-bold uppercase tracking-[.14em] text-cortijo-paper-white">{c.badge}</div>
+                <div class="text-[11px] uppercase tracking-[.14em] text-cortijo-muted">{c.qualifier}</div>
+              </div>
+              <div class="font-cortijo-serif text-xl font-medium leading-[1.25] text-cortijo-olive-ink">{c.title}</div>
+              <div class="text-pretty text-[14.5px] leading-[1.7] text-cortijo-ink">{c.body}</div>
+            </div>
+          ))}
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2 lg:gap-8">
+          {callouts.map((c) => (
+            <div class={`flex flex-col gap-[13px] rounded-tl-cortijo-callout rounded-tr-cortijo-callout border-t-[3px] bg-cortijo-paper-white p-7 ${c.border}`}>
+              <div class="font-cortijo-serif text-xl font-medium leading-[1.25] text-cortijo-olive-ink">{c.title}</div>
+              <div class="text-pretty text-[14.5px] leading-[1.7] text-cortijo-ink">{c.body}</div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    )}
 
     <!-- Who we help -->
-    <div class="band-x flex flex-col gap-11 bg-white py-16 lg:py-[88px]">
-      <div class="flex flex-col gap-[14px]">
-        <SectionLabel text="Who we help" color="text-muted" />
-        <div class="text-[32px] font-semibold leading-[1.14] tracking-[-.025em] text-forest lg:text-[40px]">Producers, cooperatives, and students</div>
-      </div>
-      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {whoHelp.map((w) => (
-          <div class="flex flex-col gap-4 rounded-tl-panel rounded-br-panel bg-bone p-8 lg:p-[38px]">
-            <div class="text-pretty text-xl font-semibold leading-[1.25] text-forest lg:text-[23px]">{w.title}</div>
-            <div class="text-pretty text-[15px] leading-[1.68] text-body">{w.body}</div>
+    {showWhoWeHelp && (
+      <div id="who" class="band-x flex flex-col gap-8 bg-cortijo-paper-warm py-16 lg:gap-11 lg:py-[92px]">
+        <div class="flex flex-col gap-4">
+          <div class={`${eyebrowRule} text-cortijo-muted`}>
+            <div class="h-[1.5px] w-[26px] bg-cortijo-muted"></div>
+            <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">Who we help</div>
           </div>
-        ))}
+          <div class="font-cortijo-serif text-[28px] font-medium leading-[1.16] tracking-[-.01em] text-cortijo-olive-ink lg:text-[40px] lg:leading-[1.1]">
+            Cooperatives, farmers, and students
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-[26px]">
+          {whoHelp.map((w) => (
+            <div class="flex flex-col gap-[18px] rounded-tl-cortijo-panel rounded-tr-cortijo-panel bg-cortijo-paper-white p-8 lg:p-11">
+              <div class="text-pretty font-cortijo-serif text-2xl font-medium leading-[1.2] text-cortijo-olive-ink lg:text-[26px]">{w.title}</div>
+              <div class="text-pretty text-[15px] leading-[1.7] text-cortijo-ink lg:text-[15.5px] lg:leading-[1.75]">{w.body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Enrollment band -->
+    <div class="relative overflow-hidden bg-cortijo-olive-ink-deep">
+      <div class="absolute inset-0">
+        <img src="/images/pexels-armandoh2-18749480.jpg" alt="" class="h-full w-full object-cover" />
+      </div>
+      <div class="absolute inset-0 bg-cortijo-olive-ink-deep opacity-[.84] pointer-events-none"></div>
+      <div class="band-x relative flex flex-col items-start gap-6 py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:py-[88px]">
+        <div class="flex flex-col gap-[14px]">
+          <div class="text-pretty font-cortijo-serif text-[26px] font-medium leading-[1.15] tracking-[-.01em] text-cortijo-bone lg:max-w-[640px] lg:text-[34px]">
+            Come and learn with us.
+          </div>
+          <div class="text-pretty text-[15px] leading-[1.7] text-cortijo-sage-pale lg:max-w-[560px] lg:text-[15.5px]">
+            Enrollment, assessment schedules, and cooperative programs &mdash; the farm school team answers directly.
+          </div>
+          <div class="text-[13px] text-cortijo-sage pt-1 lg:text-[14px]">0917 143 1060 &middot; 0915 009 0383 &middot; lavstradecorp@gmail.com</div>
+        </div>
+        <a
+          href="/contact"
+          class="flex-none whitespace-nowrap rounded-tl-cortijo-control-lg rounded-tr-cortijo-control-lg bg-cortijo-terracotta px-[30px] py-[19px] text-[12.5px] font-semibold uppercase tracking-[.1em] text-cortijo-paper-white hover:bg-cortijo-terracotta-light transition-colors"
+        >
+          Enroll in Agriculture Courses
+        </a>
       </div>
     </div>
 
-    <SlimCta
-      question="Ready to train, get certified, or source from the farm?"
-      subline="Enrollment and supply inquiries go to the same team."
-      ctaLabel="Enroll in TESDA courses"
-      ctaHref="/contact"
-    />
-
-    <SiteFooter />
+    <CortijoFooter />
   </div>
-</BaseLayout>
+</CortijoLayout>

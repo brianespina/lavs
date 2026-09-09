@@ -1,0 +1,55 @@
+---
+/**
+ * The Cortijo de Palsabangon wordmark — a type-only lockup, no mark of its
+ * own (client decision, same as the old Cortijo spec — see
+ * docs/decisions.md). Name set in Bitter over an Archivo descriptor in
+ * tracked caps. `context` bundles the size/tone/descriptor combination
+ * used at each of the four places this appears.
+ */
+interface Props {
+  context: "nav" | "footer" | "panel" | "panel-mobile";
+  class?: string;
+}
+
+const { context, class: className } = Astro.props;
+
+const presets = {
+  nav: {
+    tone: "ink",
+    nameSize: "text-[25px]",
+    descriptorSize: "text-[8px] tracking-[.28em]",
+    descriptor: "Farm OPC · Agricultural School & Assessment Center",
+  },
+  footer: {
+    tone: "ink",
+    nameSize: "text-[23px]",
+    descriptorSize: "text-[8px] tracking-[.28em]",
+    descriptor: "Farm OPC · Est. 2012 · Quezon Province",
+  },
+  panel: {
+    tone: "bone",
+    nameSize: "text-[20px]",
+    descriptorSize: "text-[7.5px] tracking-[.26em]",
+    descriptor: "Farm OPC · Est. 2012 · Quezon Province",
+  },
+  "panel-mobile": {
+    tone: "bone",
+    nameSize: "text-[18px]",
+    descriptorSize: "text-[6.5px] tracking-[.24em]",
+    descriptor: "Farm OPC · Est. 2012 · Quezon Province",
+  },
+} as const;
+
+const preset = presets[context];
+const nameColor = preset.tone === "bone" ? "text-cortijo-bone" : "text-cortijo-olive-ink";
+const descriptorColor = preset.tone === "bone" ? "text-cortijo-sage" : "text-cortijo-muted";
+---
+
+<div class={["flex flex-col gap-[6px]", className].filter(Boolean).join(" ")}>
+  <div class={`font-cortijo-serif font-medium leading-none tracking-[-.005em] ${preset.nameSize} ${nameColor}`}>
+    Cortijo de Palsabangon
+  </div>
+  <div class={`whitespace-nowrap font-semibold uppercase leading-none ${preset.descriptorSize} ${descriptorColor}`}>
+    {preset.descriptor}
+  </div>
+</div>

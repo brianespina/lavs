@@ -4,6 +4,7 @@ import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Hero from "../components/Hero.astro";
 import SectionLabel from "../components/SectionLabel.astro";
+import CortijoPanel from "../components/CortijoPanel.astro";
 
 const commitments = [
   {
@@ -18,7 +19,7 @@ const commitments = [
     bar: "bg-olive",
     num: "02",
     title: "Community agriculture programs",
-    body: "Through Cortijo de Palsabangon, we uplift local producers, bridge the gap between farmers and broader markets, and conduct community agriculture training to empower the next generation of growers.",
+    body: "With our sister company, Cortijo de Palsabangon Farm, we run community agriculture training, cooperative extension programs, and youth immersion that build the next generation of growers.",
     image: "/images/pexels-muhamad-guruh-budi-hartono-430167744-37321079.jpg",
     alt: "Community training and outreach",
   },
@@ -62,7 +63,7 @@ const gallery = [
       imageAlt="Landscape and community program"
       eyebrow="Sustainability & community"
       title="Building a greener future"
-      lead="At LAVS Trading and Development Services Inc. and Cortijo de Palsabangon Farm, sustainability is not just an initiative — it is the foundation of everything we do. Commercial growth, land development, and agriculture must go hand-in-hand with environmental stewardship and community empowerment."
+      lead="At LAVS Trading and Development Services Inc., sustainability is not just an initiative — it is the foundation of everything we do. Commercial growth, land development, and agriculture must go hand-in-hand with environmental stewardship and community empowerment."
     />
 
     <!-- Three commitments -->
@@ -80,6 +81,23 @@ const gallery = [
           </div>
         ))}
       </div>
+    </div>
+
+    <!-- Sustainability & community: Cortijo introduction panel -->
+    <div class="band-x flex flex-col gap-8 bg-bone-deep py-16 lg:gap-[38px] lg:py-[88px]">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
+        <div class="flex flex-col gap-4">
+          <SectionLabel text="Sustainability & community" color="text-muted" size="sm" />
+          <div class="max-w-[620px] text-pretty text-[28px] font-semibold leading-[1.16] tracking-[-.025em] text-forest lg:text-[38px]">
+            Our advocacy and education work runs through Cortijo de Palsabangon.
+          </div>
+        </div>
+        <div class="text-pretty text-[14.5px] leading-[1.65] text-muted-3 lg:max-w-[380px]">
+          LAVS Trading holds the commercial side. Everything to do with teaching sits with Cortijo de Palsabangon Farm OPC &mdash; part of the group, with its own accreditations and its own name.
+        </div>
+      </div>
+
+      <CortijoPanel image="/images/pexels-roman-odintsov-12719333.jpg" />
     </div>
 
     <!-- Aligned with national bodies -->

@@ -1,10 +1,16 @@
 ---
 /**
- * Primary way to move between the five LAVS Trading service pages.
+ * Primary way to move between the four LAVS Trading service pages.
  * `active` highlights the current tab with a persistent gold-light fill.
+ *
+ * Consolidated from five pages to four by client direction: Coco Nets,
+ * Charcoal Briquettes, and VCO Oil merged into one catalog page
+ * ("Bulk Agro-Industrial Supplies" — a photo grid, no per-product detail
+ * pages needed since inquiries route through /contact); Planting Materials
+ * & Seedlings is new. See docs/decisions.md.
  */
 interface Props {
-  active: "landscaping" | "farm-development" | "coco-nets" | "charcoal-briquettes" | "vco-oil";
+  active: "landscaping" | "farm-development" | "planting-materials-seedlings" | "bulk-agro-industrial-supplies";
 }
 
 const { active } = Astro.props;
@@ -12,21 +18,20 @@ const { active } = Astro.props;
 const services = [
   { slug: "landscaping", label: "Landscaping" },
   { slug: "farm-development", label: "Farm Development" },
-  { slug: "coco-nets", label: "Coco Nets / Geonets" },
-  { slug: "charcoal-briquettes", label: "Charcoal Briquettes" },
-  { slug: "vco-oil", label: "VCO Oil" },
+  { slug: "planting-materials-seedlings", label: "Planting Materials & Seedlings" },
+  { slug: "bulk-agro-industrial-supplies", label: "Bulk Agro-Industrial Supplies" },
 ] as const;
 ---
 
-<div class="band-x flex h-auto flex-wrap items-stretch bg-forest-deep lg:h-16 lg:flex-nowrap">
+<div class="band-x flex h-auto items-stretch gap-1 overflow-x-auto bg-forest-deep lg:h-16 lg:gap-0 lg:overflow-visible">
   {
     services.map((service) => (
       <a
         href={`/lavs-trading/${service.slug}`}
         class={
           service.slug === active
-            ? "flex items-center whitespace-nowrap rounded-tl-field rounded-br-field bg-gold-light px-[26px] py-3 text-[12.5px] font-semibold uppercase tracking-[.06em] text-ink lg:py-0"
-            : "flex items-center whitespace-nowrap px-[26px] py-3 text-[12.5px] font-medium uppercase tracking-[.06em] text-mint hover:text-gold-light lg:py-0"
+            ? "flex flex-none items-center whitespace-nowrap rounded-tl-field rounded-br-field bg-gold-light px-[26px] py-3 text-[12.5px] font-semibold uppercase tracking-[.06em] text-ink lg:py-0"
+            : "flex flex-none items-center whitespace-nowrap px-[26px] py-3 text-[12.5px] font-medium uppercase tracking-[.06em] text-mint hover:text-gold-light lg:py-0"
         }
       >
         {service.label}

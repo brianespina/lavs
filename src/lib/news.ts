@@ -4,13 +4,13 @@
  * zod schema), and every component/page that renders a category badge or
  * filter. Add a category here once; it propagates everywhere.
  */
-export const NEWS_CATEGORIES = ["LAVS Trading", "Cortijo", "Sustainability & Community"] as const;
+export const NEWS_CATEGORIES = ["LAVS Trading", "Community & Education", "Sustainability & Community"] as const;
 
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
 
 export const CATEGORY_BADGE_CLASS: Record<NewsCategory, string> = {
   "LAVS Trading": "bg-forest text-bone",
-  Cortijo: "bg-olive text-white",
+  "Community & Education": "bg-olive text-white",
   "Sustainability & Community": "bg-gold text-ink",
 };
 
