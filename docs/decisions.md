@@ -206,6 +206,31 @@ box on a white card. Sources are small (864-2032px) — fine for 315px
 cards, which is why the page hero uses the one full-frame texture in the
 batch (smoked copra) rather than a cut-out.
 
+## Accreditation logos: background cleanup
+
+When the client supplied the real PCA, SEC, DTI, and DepEd marks
+(2026-11-04), four of the six files in `public/logos/` turned out to
+have broken backgrounds — invisible against a white page, obvious
+against the Home strip's `bone` chips:
+
+- `da-ati` and `sec` had an opaque **white plate** baked into the
+  artwork (the PNG canvas corners were transparent, so it looked fine in
+  a file browser).
+- `deped` and `dti` had a **transparency checkerboard** baked in — the
+  grey-and-white squares of a preview UI, screenshotted and saved.
+
+All four were replaced or repaired to genuine transparency. Method, if
+this recurs: `-fuzz N% -transparent white` on flat vector-style artwork,
+checked by flattening onto magenta at zoom to catch edge erosion and
+halos. **Don't use corner flood-fill (`-draw "alpha 0,0 floodfill"`) at
+high fuzz** — on DepEd at 12% it crept through the anti-aliased letter
+edges and chewed holes in the letterforms. Global `-transparent white`
+at 8% was clean.
+
+Enclosed white areas (the DA seal's interior, letter counters) go
+transparent along with the background, which is deliberate — it keeps
+one consistent treatment, and the chips they sit on are light.
+
 ## Cortijo gets a gallery section
 
 Added with that photo batch: an "On the farm" gallery between Who We Help
