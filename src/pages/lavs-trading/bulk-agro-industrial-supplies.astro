@@ -18,28 +18,70 @@ import SlimCta from "../../components/SlimCta.astro";
  */
 const products = [
   {
-    image: "/images/pexels-denniz-futalan-339724-29928489.jpg",
-    alt: "Coco nets erosion-control netting installed on a slope",
-    name: "Coco Nets / Geonets",
+    image: "/images/products/coco-nets-geotextile.webp",
+    alt: "Roll of woven coconut-fibre geotextile netting",
+    name: "Coco Nets / Geotextile",
     body: "Erosion-control geotextiles woven from Philippine coconut fibre — a nature-based alternative for slope stabilisation.",
   },
   {
-    image: "/images/pexels-maltelu-13037136.jpg",
-    alt: "Coconut-shell charcoal briquettes",
-    name: "Coconut Charcoal Briquettes",
-    body: "Coconut-shell charcoal and activated carbon, produced from Philippine byproducts.",
+    image: "/images/products/coir-rope-twine.webp",
+    alt: "Bundle of twisted coir rope",
+    name: "Coir Rope & Twine",
+    body: "Rope and twine spun from coconut husk fibre, for agricultural, marine, and handicraft use.",
   },
   {
-    image: "/images/pexels-kovalskiolga-8647221.jpg",
-    alt: "Virgin coconut oil",
-    name: "VCO Oil",
+    image: "/images/products/coconut-fiber.webp",
+    alt: "Loose golden coconut husk fibre",
+    name: "Coconut Fibre (Coir)",
+    body: "Loose husk fibre supplied as feedstock for nets, rope, and moulded coir products.",
+  },
+  {
+    image: "/images/products/coco-peat.webp",
+    alt: "Pile of coco peat growing medium",
+    name: "Coco Peat",
+    body: "Coir pith growing medium — a renewable substitute for peat in nurseries and soil blends.",
+  },
+  {
+    image: "/images/products/briquettes-hexagonal.webp",
+    alt: "Hexagonal coconut-shell charcoal briquettes",
+    name: "Hexagonal Charcoal Briquettes",
+    body: "Hexagonal coconut-shell briquettes with a centre bore, for grilling and industrial heat.",
+  },
+  {
+    image: "/images/products/briquettes-pillow.webp",
+    alt: "Pillow-shaped coconut charcoal briquettes",
+    name: "Pillow Charcoal Briquettes",
+    body: "Pillow-form coconut-shell briquettes, the common shape for barbecue and household fuel.",
+  },
+  {
+    image: "/images/products/briquettes-cylindrical.webp",
+    alt: "Stacked cylindrical coconut-shell briquettes",
+    name: "Cylindrical Charcoal Briquettes",
+    body: "Cylindrical coconut-shell briquettes with a centre bore, supplied to bulk and export buyers.",
+  },
+  {
+    image: "/images/products/shisha-charcoal.webp",
+    alt: "Cube-cut coconut-shell shisha charcoal",
+    name: "Shisha / Hookah Charcoal",
+    body: "Cube-cut coconut-shell charcoal produced for the shisha and hookah market.",
+  },
+  {
+    image: "/images/products/virgin-coconut-oil.webp",
+    alt: "Virgin coconut oil poured over a fresh coconut",
+    name: "Virgin Coconut Oil (VCO)",
     body: "Virgin coconut oil sourced through our producer network for commercial, industrial, and export buyers.",
   },
   {
-    image: "/images/pexels-gildasio-mota-2148932169-36063662.jpg",
-    alt: "Raw coconut and agro-industrial byproduct material",
-    name: "Raw Agro-Industrial Materials",
-    body: "Coconut shell, husk, and other primary Philippine agricultural byproducts, supplied in bulk for further processing.",
+    image: "/images/products/coconut-shell.webp",
+    alt: "Two halves of a dried coconut shell",
+    name: "Coconut Shell",
+    body: "Whole and split shell, supplied as feedstock for charcoal and activated carbon production.",
+  },
+  {
+    image: "/images/products/smoked-copra.webp",
+    alt: "Smoke-dried copra",
+    name: "Smoked Copra",
+    body: "Smoke-dried copra from Quezon Province farms, supplied to oil millers and processors.",
   },
 ];
 ---
@@ -49,8 +91,8 @@ const products = [
     <SiteNav active="lavs" />
 
     <Hero
-      image="/images/pexels-gildasio-mota-2148932169-36063662.jpg"
-      imageAlt="Philippine agro-industrial byproducts ready for bulk supply"
+      image="/images/products/hero-coconut-byproducts.webp"
+      imageAlt="Smoke-dried copra, one of the Philippine coconut byproducts supplied at volume"
       breadcrumb={{ parentLabel: "LAVS Trading & Development", parentHref: "/lavs-trading", current: "Bulk Agro-Industrial Supplies" }}
       title="Philippine bulk agro-industrial supplies"
       lead="Durable, eco-friendly Philippine agricultural byproducts — coco nets, charcoal briquettes, VCO oil, and raw agro-industrial materials — supplied at industrial volume to commercial and global markets."

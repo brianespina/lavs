@@ -177,6 +177,35 @@ compresses badly. It sits under `Hero.astro`'s `.68` forest overlay,
 which hides the artifacts; don't "fix" the quality number without
 checking how it actually renders behind the overlay.
 
+## Third batch: bulk-commodity product shots, and the catalog grows to 11
+
+The client supplied 11 studio product shots (2026-11-04) for
+`/lavs-trading/bulk-agro-industrial-supplies` — the batch `open-items.md`
+had been flagging as owed. They name products the four existing catalog
+cards didn't cover, so the catalog was expanded from 4 generic cards to
+**11 named products**: coco nets/geotextile, coir rope & twine, coconut
+fibre, coco peat, four charcoal forms (hexagonal, pillow, cylindrical,
+shisha/hookah cubes), VCO, coconut shell, and smoked copra. That matches
+the client's own direction for this page ("parang pics lang") — more
+product pictures is the point of it.
+
+Card copy still describes *what each product is* and never its specs:
+no SKU, grade, packaging, ash content, or burn time. Those were still
+never supplied, and the page's side note ("confirmed against your
+requirement") continues to carry that. Don't add performance claims to
+these cards without real data from the client.
+
+Processing differs from the other batches: these are studio cut-outs, so
+each is composed onto a **900x500 white canvas at 85% scale**
+(`fit: "inside"` then `extend`) rather than attention-cropped. The canvas
+aspect matches the card's image frame, so `object-cover` only ever eats
+white margin and never clips the product. Three shots
+(hexagonal/cylindrical briquettes, coco peat) had a grey studio backdrop
+and got a `-level 0%,95%` white-point lift so they don't read as a grey
+box on a white card. Sources are small (864-2032px) — fine for 315px
+cards, which is why the page hero uses the one full-frame texture in the
+batch (smoked copra) rather than a cut-out.
+
 ## Cortijo gets a gallery section
 
 Added with that photo batch: an "On the farm" gallery between Who We Help
