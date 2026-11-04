@@ -121,6 +121,74 @@ reality). `images/hero-still.jpg` stays around as the video's `poster`
 attribute (first paint / play-blocked fallback), so the same file is still
 used by the home hero — just as a poster now instead of the primary visual.
 
+## Real photography (Cortijo batch): pre-optimized WebP, not `astro:assets`
+
+The first batch of real client photography landed for the farm school
+(2026-11-03) — 73 phone/Facebook-export photos of training batches,
+demonstration plots, coir work, and graduations. The 15 selected for
+`/cortijo` live in `public/images/cortijo/` as **WebP, pre-resized and
+cropped to each slot** (7.5 MB of source JPEG → 2.1 MB served, ~71%
+smaller), still referenced with plain `<img src="...">` like the rest of
+the site.
+
+This deliberately does *not* take the `astro:assets` migration that the
+[Images](#images) decision above flags as the thing to revisit "when real
+photography arrives". Reasoning: only Cortijo's photos are real so far —
+every other page is still stock pending its own batch. Migrating one page
+to `<Image>` would leave two different image idioms in the codebase for
+however long the other batches take. The perf win (the actual point of
+the exercise, for Philippine mobile connections) is already banked by
+pre-optimizing. **When the remaining batches land, do the `astro:assets`
+switch site-wide in one pass** — at which point these WebP files are
+already the right size and can be imported as-is.
+
+Crops were produced with sharp's attention-based `fit: "cover"` crop to
+the slot's own aspect ratio, so each file is pre-cropped on its subject
+rather than relying on `object-cover` to guess at render time. The script
+is not kept in the repo (one-off); the sizes per slot are recorded in the
+file names and in `src/pages/cortijo.astro`. Source originals are **not**
+in version control — see the backup note in
+[`open-items.md`](./open-items.md#also-worth-flagging-back-to-the-clientdevlead).
+
+## Second real-photography batch: farm development (LAVS)
+
+A second client batch landed 2026-11-04 — `FARM DEVELOPMENT.zip`, 293
+photos across seven named project sites (Pagbilao, San Juan Batangas,
+Bankong Kahoy, Malvar, and three Talim/Lucena sites) plus four videos.
+Same treatment as the Cortijo batch: selected, cropped per slot, and
+encoded to WebP in `public/images/farm/` (31.5 MB of source → 2.5 MB
+served, ~90% smaller).
+
+Roughly 40 of the 293 are phone screenshots (black letterboxing, visible
+status bar) or Facebook post collages — unusable, skipped. The rest are
+mostly 4608x2184 / 4032x1908 panoramas, i.e. the highest-quality source
+material the project has had so far.
+
+Where it went, beyond the farm-development page it was supplied for:
+`/lavs-trading/planting-materials-seedlings` (the batch includes a full
+nursery set — bagged stock, trays, seedling crates), `/lavs-trading`'s
+"lines of business" card 1 and the our-story photo, two
+`/sustainability` gallery tiles, and the `farm-development-groundbreaking`
+news cover. **The four videos were reviewed and rejected** (2026-11-04): handheld phone pans across papaya plots and tilled ground in flat overcast light, 8-22s, no usable camera movement, and the Pagbilao one is vertical (1080x1920) and soft. All four are worse footage than the existing hero clip — don't re-litigate them; the home hero video is still owed by the client.
+
+Note on hero compression: `farm/hero-contour-rows.webp` is 310 KB at
+q48 — unusually low quality for its size because bare-soil texture
+compresses badly. It sits under `Hero.astro`'s `.68` forest overlay,
+which hides the artifacts; don't "fix" the quality number without
+checking how it actually renders behind the overlay.
+
+## Cortijo gets a gallery section
+
+Added with that photo batch: an "On the farm" gallery between Who We Help
+and the enrollment band on `/cortijo`, plus a `Gallery` anchor in
+`CortijoNav`. Not from any handoff — the delta never designed one — so it
+follows the existing `/sustainability` gallery pattern (one 2x2 feature
+tile + singles, `object-cover`) rendered in Cortijo's own tokens (arch
+radius, `cortijo-paper` band, Bitter heading). Nine tiles is not
+arbitrary: 1 feature at 2x2 + 8 singles fills the 4-column desktop grid
+exactly with no orphan cells. Keep that arithmetic if tiles are added —
+the next clean count is 13 (feature + 12).
+
 ## Cortijo has no logo mark
 
 Client decision carried over from the handoff: Cortijo de Palsabangon is

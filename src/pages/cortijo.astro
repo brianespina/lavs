@@ -13,8 +13,8 @@ import CortijoFooter from "../components/CortijoFooter.astro";
 
 const programs = [
   {
-    image: "/images/pexels-roman-odintsov-12719333.jpg",
-    alt: "TESDA class in session",
+    image: "/images/cortijo/program-tesda-training.webp",
+    alt: "Trainees transplanting seedlings from a seedling tray into a mulched bed",
     accent: "border-cortijo-olive",
     eyebrow: "National certification",
     title: "TESDA training programs",
@@ -22,8 +22,8 @@ const programs = [
     cta: "View programs →",
   },
   {
-    image: "/images/pexels-nc-farm-bureau-mark-6791938.jpg",
-    alt: "Farmer cooperative training session",
+    image: "/images/cortijo/program-cooperative-partnerships.webp",
+    alt: "A cooperative training group gathered at the farm's coir demonstration area",
     accent: "border-cortijo-sage",
     eyebrow: "Out in the field",
     title: "Farmer cooperative partnerships",
@@ -31,8 +31,8 @@ const programs = [
     cta: "Partner with us →",
   },
   {
-    image: "/images/pexels-armandoh2-18749480.jpg",
-    alt: "Assessment or certification session",
+    image: "/images/cortijo/program-micro-credentials.webp",
+    alt: "Trainees measuring a finished coir net during a short-course session",
     accent: "border-cortijo-terracotta",
     eyebrow: "Short-form",
     title: "Micro-credential training",
@@ -84,12 +84,31 @@ const whoHelp = [
   { title: "For aspiring farmers & students", body: "Through our community agriculture courses we equip individuals with practical, hands-on knowledge, technical training, and certified skills to build sustainable farming careers." },
 ];
 
+/**
+ * Photography from the farm school itself (the first batch of real client
+ * photos to land — everything else on the site is still stock, see
+ * docs/open-items.md). Nine tiles fill the 4x3 desktop grid exactly: the
+ * first spans 2x2, the remaining eight are single cells.
+ */
+const gallery = [
+  { src: "/images/cortijo/gallery/campus-group.webp", alt: "A training batch gathered in front of the Cortijo de Palsabangon farm school building", span: "col-span-2 row-span-2" },
+  { src: "/images/cortijo/gallery/training-session.webp", alt: "A classroom session in progress at the farm school", span: "" },
+  { src: "/images/cortijo/gallery/nursery-seedling-trays.webp", alt: "Trainees filling seedling trays and potting bags in the nursery", span: "" },
+  { src: "/images/cortijo/gallery/seedling-potting.webp", alt: "A potted seedling held up in front of the nursery racks", span: "" },
+  { src: "/images/cortijo/gallery/animal-production.webp", alt: "A trainee holding a young goat in the animal production area", span: "" },
+  { src: "/images/cortijo/gallery/carbonized-husk.webp", alt: "Carbonizing coconut husk and rice hull on the farm", span: "" },
+  { src: "/images/cortijo/gallery/demonstration-plot.webp", alt: "Work underway on one of the farm's demonstration plots", span: "" },
+  { src: "/images/cortijo/gallery/coir-net-weaving.webp", alt: "Trainees measuring a coir net on the weaving frame", span: "" },
+  { src: "/images/cortijo/gallery/coir-processing-demo.webp", alt: "A coir rope and net processing demonstration for visiting trainees", span: "" },
+];
+
 // Content flags — default true, kept as simple booleans (no CMS-driven
 // toggling exists elsewhere on the site, so this matches the pattern used
 // by every other optional-section page).
 const showLavsStrip = true;
 const showCredentials = true;
 const showWhoWeHelp = true;
+const showGallery = true;
 
 const eyebrowRule = "flex items-center gap-3";
 ---
@@ -121,7 +140,7 @@ const eyebrowRule = "flex items-center gap-3";
         </div>
       </div>
       <div class="relative h-[280px] bg-cortijo-olive-ink lg:h-auto lg:flex-1">
-        <img src="/images/pexels-azinuddin-bin-abas-76503503-15717701.jpg" alt="Farm landscape and training session at Cortijo de Palsabangon" class="h-full w-full object-cover" loading="eager" />
+        <img src="/images/cortijo/hero-farm-field.webp" alt="Trainees harvesting from the trellised vegetable plots at Cortijo de Palsabangon" class="h-full w-full object-cover" loading="eager" />
         <div class="absolute inset-0 bg-cortijo-olive-ink opacity-[.14] pointer-events-none"></div>
       </div>
     </div>
@@ -145,7 +164,7 @@ const eyebrowRule = "flex items-center gap-3";
 
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-[26px]">
         {programs.map((p) => (
-          <div class="flex flex-col overflow-hidden rounded-tl-cortijo-panel rounded-tr-cortijo-panel bg-cortijo-paper-white">
+          <a href="/contact" class="group flex flex-col overflow-hidden rounded-tl-cortijo-panel rounded-tr-cortijo-panel bg-cortijo-paper-white transition-shadow hover:shadow-[0_14px_34px_rgba(42,51,24,.12)]">
             <div class="relative h-[180px] overflow-hidden lg:h-[220px]">
               <img src={p.image} alt={p.alt} class="h-full w-full object-cover" loading="lazy" />
             </div>
@@ -153,9 +172,9 @@ const eyebrowRule = "flex items-center gap-3";
               <div class="text-[11px] font-semibold uppercase tracking-[.2em] text-cortijo-terracotta">{p.eyebrow}</div>
               <div class="font-cortijo-serif text-xl font-medium leading-[1.2] text-cortijo-olive-ink lg:text-[24px]">{p.title}</div>
               <div class="text-pretty text-[14.5px] leading-[1.7] text-cortijo-ink">{p.body}</div>
-              <div class="mt-auto pt-2 text-[11.5px] font-semibold uppercase tracking-[.14em] text-cortijo-olive">{p.cta}</div>
+              <div class="mt-auto pt-2 text-[11.5px] font-semibold uppercase tracking-[.14em] text-cortijo-olive transition-colors group-hover:text-cortijo-terracotta">{p.cta}</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -186,7 +205,7 @@ const eyebrowRule = "flex items-center gap-3";
         </div>
       </div>
       <div class="relative min-h-[260px] flex-1 overflow-hidden rounded-tl-cortijo-card rounded-tr-cortijo-card lg:min-h-[520px]">
-        <img src="/images/pexels-nc-farm-bureau-mark-8658558.jpg" alt="Farm open classroom" class="h-full w-full object-cover" loading="lazy" />
+        <img src="/images/cortijo/farm-harvest.webp" alt="Two trainees in straw hats holding the string beans they have just harvested" class="h-full w-full object-cover" loading="lazy" />
       </div>
     </div>
 
@@ -255,10 +274,37 @@ const eyebrowRule = "flex items-center gap-3";
       </div>
     )}
 
+    <!-- Gallery -->
+    {showGallery && (
+      <div id="gallery" class="band-x flex flex-col gap-8 bg-cortijo-paper py-16 lg:gap-11 lg:py-[92px]">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
+          <div class="flex flex-col gap-4">
+            <div class={`${eyebrowRule} text-cortijo-muted`}>
+              <div class="h-[1.5px] w-[26px] bg-cortijo-muted"></div>
+              <div class="text-[11.5px] font-semibold uppercase tracking-[.24em]">On the farm</div>
+            </div>
+            <div class="font-cortijo-serif text-[28px] font-medium leading-[1.16] tracking-[-.01em] text-cortijo-olive-ink lg:text-[40px] lg:leading-[1.1]">
+              A year on the learning site
+            </div>
+          </div>
+          <div class="text-pretty text-[14.5px] leading-[1.65] text-cortijo-muted lg:max-w-[360px]">
+            Training batches, demonstration plots, assessment days, and the harvests in between.
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 lg:auto-rows-[220px] lg:grid-cols-4 lg:gap-[18px]">
+          {gallery.map((g) => (
+            <div class={`relative min-h-[150px] overflow-hidden rounded-tl-cortijo-callout rounded-tr-cortijo-callout lg:min-h-0 ${g.span}`}>
+              <img src={g.src} alt={g.alt} class="h-full w-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
     <!-- Enrollment band -->
     <div class="relative overflow-hidden bg-cortijo-olive-ink-deep">
       <div class="absolute inset-0">
-        <img src="/images/pexels-armandoh2-18749480.jpg" alt="" class="h-full w-full object-cover" />
+        <img src="/images/cortijo/enrollment-band.webp" alt="" class="h-full w-full object-cover" loading="lazy" />
       </div>
       <div class="absolute inset-0 bg-cortijo-olive-ink-deep opacity-[.84] pointer-events-none"></div>
       <div class="band-x relative flex flex-col items-start gap-6 py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:py-[88px]">
