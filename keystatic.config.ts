@@ -52,8 +52,10 @@ export default config({
         }),
         coverImage: fields.image({
           label: "Cover image",
+          description: "Required — every card, thumbnail and article header renders this. Saving without one would fail the production build (src/content.config.ts requires it).",
           directory: "public/images/news",
           publicPath: "/images/news/",
+          validation: { isRequired: true },
         }),
         body: fields.markdoc({
           label: "Article content",
