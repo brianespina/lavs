@@ -33,6 +33,51 @@ without a GitHub account or touching code.
   colors, and a shared date formatter. Add a category here first if you
   ever need a 4th.
 
+## Cover images live in a per-entry folder — this is not optional
+
+Cover images must be stored as `public/images/news/<entry-slug>/coverImage.<ext>`
+and referenced in frontmatter as `/images/news/<entry-slug>/coverImage.<ext>`.
+A flat `public/images/news/<name>.jpg` **will not work**, even though Astro
+renders it perfectly well.
+
+The reason is in Keystatic itself. For an asset field inside a collection it
+appends the entry slug to both the `directory` and the `publicPath`
+(`getDirectoriesForTreeKey` in `@keystatic/core`):
+
+```js
+const toAdd = slug === undefined ? '' : `/${slug}`;
+directories.push(directory + toAdd);   // public/images/news/<slug>
+```
+
+So with a flat path the admin UI strips the wrong-length prefix off the stored
+value, looks for a file that isn't there, and the field silently resolves to
+`null` — it renders as an empty "Choose file" box even though the image is
+sitting in the repo. Worse, saving that entry then writes it back *without*
+`coverImage`, which fails the production build, since `src/content.config.ts`
+requires the field. That is exactly how the `35f417a` → red-build incident
+happened.
+
+You can check every entry resolves without opening a browser:
+
+```bash
+node --input-type=module -e "
+import { fields } from '@keystatic/core';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
+const f = fields.image({ label:'Cover image', directory:'public/images/news', publicPath:'/images/news/' });
+for (const file of readdirSync('src/content/news').sort()) {
+  const slug = file.replace(/\.mdoc$/, '');
+  const stored = readFileSync('src/content/news/'+file,'utf8').match(/^coverImage: (.*)$/m)?.[1];
+  const name = f.filename(stored, { slug, suggestedFilenamePrefix: undefined });
+  console.log((existsSync('public/images/news/'+slug+'/'+name)?'OK  ':'FAIL')+'  '+slug);
+}"
+```
+
+`coverImage` is also marked `validation: { isRequired: true }` in
+`keystatic.config.ts`, matching the required `z.string()` in
+`src/content.config.ts`. Keep those two in agreement: an image field is
+optional in Keystatic by default, and any field the CMS can leave empty but
+zod requires is a guaranteed red deploy.
+
 ## Pages that read from it
 
 | Page | What it pulls |
@@ -52,8 +97,10 @@ Two ways, both produce the same files:
 2. **By hand** — add a `.mdoc` file to `src/content/news/` following the
    shape of any existing one (frontmatter fields must match
    `src/content.config.ts`'s schema exactly, including `category` being one
-   of the three exact strings in `src/lib/news.ts`). Put the cover image in
-   `public/images/news/` and point `coverImage` at `/images/news/<file>`.
+   of the three exact strings in `src/lib/news.ts`). Put the cover image at
+   `public/images/news/<entry-slug>/coverImage.<ext>` and point `coverImage`
+   at `/images/news/<entry-slug>/coverImage.<ext>` — the per-entry folder is
+   required, see above.
 
 Either way, `npm run build` will fail loudly (zod validation) if a required
 field is missing or a category string doesn't match — that's intentional,
@@ -89,16 +136,23 @@ Keystatic untouched.
 
 ## What's not set up yet
 
-- **Pushing this repo to GitHub and connecting it in the Keystatic Cloud
-  dashboard.** Until that's done, `/keystatic` will let you sign in but
-  saves won't land anywhere durable. See `docs/open-items.md`.
+- ~~Pushing this repo to GitHub and connecting it in the Keystatic Cloud
+  dashboard.~~ **Done.** The repo is `brianespina/lavs` and saves from
+  `/keystatic` land as real commits authored by `keystatic-cloud[bot]`.
 - `worker-configuration.d.ts` (Cloudflare's generated binding types) is
   gitignored — regenerate it locally with `npx wrangler types` if you add a
   binding to `wrangler.jsonc` and want it typed. Neither the build nor
   `astro check` currently depend on this file existing.
-- **Deploying to Cloudflare Workers.** `wrangler.jsonc` exists
-  (worker name `lavs-trading`) but nothing has been deployed — that's a
-  separate step (`wrangler deploy` after `npm run build`, or wiring up CI).
+- ~~Deploying to Cloudflare Workers.~~ **Done, via Cloudflare Workers
+  Builds**, which is connected to this repo and builds on every push to
+  `main` — including the commits Keystatic Cloud makes. Two things to know:
+  the deployed Worker is named **`lavs`**, while `wrangler.jsonc` still says
+  `"name": "lavs-trading"`, so local `wrangler` commands target a Worker
+  that doesn't exist (`error 10007`) — reconcile those before relying on the
+  CLI. And builds can sit in Cloudflare's queue for several minutes before
+  the container even starts, so "nothing happened yet" is not evidence of a
+  broken hook; check the commit's check-run status instead:
+  `gh api repos/brianespina/lavs/commits/<sha>/check-runs`.
 - **Pagination / "Load more updates."** Still a static, non-functional
   button — same open item as before, now just backed by real content
   instead of placeholders. `/news` currently shows up to 3 LAVS Trading,
